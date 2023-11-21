@@ -88,6 +88,7 @@
     <ClInclude Include="game_font.h" />
     <ClInclude Include="game_menu.h" />
     <ClInclude Include="game_process.h" />
+    <ClInclude Include="game_screen.h" />
     <ClInclude Include="game_test.h" />
     <ClInclude Include="game_window.h" />
     <ClInclude Include="hook_functions_replace.h" />
@@ -98,10 +99,12 @@
     <ClCompile Include="game_font.cpp" />
     <ClCompile Include="game_menu.cpp" />
     <ClCompile Include="game_process.cpp" />
+    <ClCompile Include="game_screen.cpp" />
     <ClCompile Include="game_test.cpp" />
     <ClCompile Include="game_window.cpp" />
     <ClCompile Include="hook_defwindowproca_custom.cpp" />
     <ClCompile Include="hook_functions_replace.cpp" />
+    <ClCompile Include="hook_setmenu_custom.cpp" />
     <ClCompile Include="output_debug_stream.cpp" />
   </ItemGroup>
   <ItemGroup>

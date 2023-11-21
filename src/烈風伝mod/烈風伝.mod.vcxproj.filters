@@ -40,6 +40,9 @@
     <Filter Include="テスト">
       <UniqueIdentifier>{6014a4d5-da5f-4280-b02a-a54bb4f3739d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="画面">
+      <UniqueIdentifier>{c98ca62f-c836-4bcc-b6f4-ae9da9a7f21f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="game_test.h">
       <Filter>テスト</Filter>
+    </ClInclude>
+    <ClInclude Include="game_screen.h">
+      <Filter>画面</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +97,12 @@
     </ClCompile>
     <ClCompile Include="game_test.cpp">
       <Filter>テスト</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_setmenu_custom.cpp">
+      <Filter>フック関数置き換え系</Filter>
+    </ClCompile>
+    <ClCompile Include="game_screen.cpp">
+      <Filter>画面</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

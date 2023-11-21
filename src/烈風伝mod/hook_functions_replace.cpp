@@ -202,6 +202,25 @@ HFONT WINAPI Hook_CreateFontIndirectA(
 
 
 
+//---------------------------SetMenu
+using PFNSETMENU = BOOL(WINAPI*)(HWND, HMENU);
+
+PROC pfnOrigSetMenu = GetProcAddress(GetModuleHandleA("user32.dll"), "SetMenu");
+
+extern BOOL Hook_SetMenuCustom(HWND hWnd, HMENU hMenu);
+
+BOOL WINAPI Hook_SetMenu(HWND hWnd, HMENU hMenu) {
+
+    // 先にカスタムの方を実行。
+    Hook_SetMenuCustom(hWnd, hMenu);
+
+    // 元のものを呼び出す
+    BOOL nResult = ((PFNSETMENU)pfnOrigSetMenu)(hWnd, hMenu);
+
+
+    return nResult;
+}
+
 
 
 
@@ -281,6 +300,11 @@ void hookFunctionsReplace() {
         OutputDebugStream("CreateFontIndirectAをフックします\n");
         pfnOrig = ::GetProcAddress(GetModuleHandleA("gdi32.dll"), "CreateFontIndirectA");
         ReplaceIATEntryInAllMods("gdi32.dll", pfnOrig, (PROC)Hook_CreateFontIndirectA);
+    }
+    if (!isHookSetMenu) {
+        isHookSetMenu = true;
+        pfnOrig = ::GetProcAddress(GetModuleHandleA("user32.dll"), "SetMenu");
+        ReplaceIATEntryInAllMods("user32.dll", pfnOrig, (PROC)Hook_SetMenu);
     }
     if (!isHookReleaseDC) {
         isHookReleaseDC = true;

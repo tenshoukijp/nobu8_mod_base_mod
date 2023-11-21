@@ -1,11 +1,20 @@
-﻿  hook_functions_replace.cpp
+﻿  export_func.cpp
+  game_font.cpp
+  game_menu.cpp
+  game_process.cpp
+  game_screen.cpp
+  game_test.cpp
+  game_window.cpp
+  hook_defwindowproca_custom.cpp
+  hook_functions_replace.cpp
+  hook_setmenu_custom.cpp
+  output_debug_stream.cpp
      ライブラリ C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.lib とオブジェクト C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.exp を作成中
 LINK : warning LNK4232: 名前 烈風伝.mod に ASCII 文字以外の文字が含まれています。932 以外の ANSI コードページを使用すると、DLL をシステムに読み込めない可能性があります
 烈風伝.mod.exp : warning LNK4070: .EXP 内の /OUT:烈風伝.mod ディレクティブの指定が出力ファイル名 'C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.dll' と異なっています。ディレクティブは無視されます。
   コード生成しています。
-  18 of 123 functions (14.6%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    5 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB not found, fall back to full compilation.
+  All 128 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   コード生成が終了しました。
 烈風伝.mod.exp : warning LNK4070: .EXP 内の /OUT:烈風伝.mod ディレクティブの指定が出力ファイル名 'C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.dll' と異なっています。ディレクティブは無視されます。
   烈風伝.mod.vcxproj -> C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.dll
