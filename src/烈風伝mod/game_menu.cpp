@@ -15,8 +15,6 @@ HMENU hNB8MenuCheckChange = NULL;
 // メニュー(通常のアプリのメニュー)のメニューアイテムを実行した時、
 // 番号は主にリソースエディタで確認できる
 BOOL onMenuPushed(int iMenuID) {
-	OutputDebugStream(iMenuID);
-	OutputDebugStream("\r\n");
 	switch (iMenuID) {
 	case ADDITIONAL_MENU_ID_MEMORYEDITOR:
 		ShellExecute(NULL, "open", "notepad.exe", NULL, NULL, SW_SHOW);

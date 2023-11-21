@@ -1,6 +1,7 @@
 #include <windows.h>
 #include "game_menu.h"
 #include "game_font.h"
+#include "javascript_mod.h"
 #include "output_debug_stream.h"
 
 HWND hNB8Wnd = NULL;
@@ -25,6 +26,9 @@ void onCreateWindow(HWND hWnd) {
 		// メニューを追加した
 		addMenuItem(GetSystemMenu(hNB8Wnd, FALSE), "メモ帳起動(&M)", RESOURCE_MENU_ID_EXIT, ADDITIONAL_MENU_ID_NOTEPAD);
 
+		// JavaScriptMod
+		callJSModCreateWindow(hWnd);
+
 		OutputDebugStream("メニューを追加した\n");
 
 		OutputDebugStream("烈風伝の開始\n");
@@ -36,6 +40,10 @@ void onCreateWindow(HWND hWnd) {
 BOOL doneDestroyWindow = FALSE;
 void onDestroyWindow() {
 	if (!doneDestroyWindow) {
+
+		// JavaScriptMod
+		callJSModDestroyWindow();
+
 		OutputDebugStream("ウィンドウ破棄\r\n");
 	}
 

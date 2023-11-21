@@ -43,6 +43,9 @@
     <Filter Include="画面">
       <UniqueIdentifier>{c98ca62f-c836-4bcc-b6f4-ae9da9a7f21f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="JavaScriptMod">
+      <UniqueIdentifier>{07123c70-d793-4e09-88aa-5de204ceaa6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="game_screen.h">
       <Filter>画面</Filter>
+    </ClInclude>
+    <ClInclude Include="javascript_mod.h">
+      <Filter>JavaScriptMod</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="game_screen.cpp">
       <Filter>画面</Filter>
+    </ClCompile>
+    <ClCompile Include="javascript_mod.cpp">
+      <Filter>JavaScriptMod</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

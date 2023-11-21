@@ -244,8 +244,6 @@ LRESULT APIENTRY NB8WndProcCustom(
 		onDestroyWindow();
 	}
 	else if (Msg == WM_COMMAND) {
-		OutputDebugStream("WM_COMMAND\n");
-
 		WORD menuID = LOWORD(wParam);
 		onMenuPushed(menuID);
 	}

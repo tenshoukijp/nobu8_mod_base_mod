@@ -1,0 +1,4 @@
+LIBRARY JavaScript.mod
+EXPORTS
+	onCreateWindow = onCreateWindow @ 1
+	onDestroyWindow = onDestroyWindow @ 2

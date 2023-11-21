@@ -1,0 +1,2 @@
+C:\Users\master\source\repos\烈風伝Mod\JavaScript.mod\Release\JavaScript.mod.vcxproj.AssemblyReference.cache
+C:\Users\master\source\repos\烈風伝Mod\JavaScript.mod\Release\JavaScript.mod.vcxproj.CopyComplete
