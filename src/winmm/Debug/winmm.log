@@ -1,0 +1,15 @@
+﻿  dllextern.cpp
+  dllmain.cpp
+  loadmod.cpp
+  on_finalize.cpp
+  on_initialize.cpp
+  output_debug_stream.cpp
+  process.cpp
+  コードを生成中...
+C:\Users\master\source\repos\烈風伝Mod\winmm\dllextern.cpp(705,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\dllmain.cpp(86,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\loadmod.cpp(47,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\on_finalize.cpp(11,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\on_initialize.cpp(18,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\output_debug_stream.cpp(35,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?
+C:\Users\master\source\repos\烈風伝Mod\winmm\process.cpp(102,1): error C1010: プリコンパイル ヘッダーを検索中に不明な EOF が見つかりました。'#include "pch.h"' をソースに追加しましたか?

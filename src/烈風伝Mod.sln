@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinMM", "winmm\winmm.vcxproj", "{99C6F6F9-F0CB-4506-8500-FB35065CCF7D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "烈風伝.mod", "烈風伝mod\烈風伝.mod.vcxproj", "{E7DB5D3A-B05B-4116-ACCE-916D8E6CE3C3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99C6F6F9-F0CB-4506-8500-FB35065CCF7D}.Debug|x86.ActiveCfg = Debug|Win32
+		{99C6F6F9-F0CB-4506-8500-FB35065CCF7D}.Debug|x86.Build.0 = Debug|Win32
+		{99C6F6F9-F0CB-4506-8500-FB35065CCF7D}.Release|x86.ActiveCfg = Release|Win32
+		{99C6F6F9-F0CB-4506-8500-FB35065CCF7D}.Release|x86.Build.0 = Release|Win32
+		{E7DB5D3A-B05B-4116-ACCE-916D8E6CE3C3}.Debug|x86.ActiveCfg = Debug|Win32
+		{E7DB5D3A-B05B-4116-ACCE-916D8E6CE3C3}.Debug|x86.Build.0 = Debug|Win32
+		{E7DB5D3A-B05B-4116-ACCE-916D8E6CE3C3}.Release|x86.ActiveCfg = Release|Win32
+		{E7DB5D3A-B05B-4116-ACCE-916D8E6CE3C3}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {91853A94-27CC-4B5E-B0B0-AE2136146D0B}
+	EndGlobalSection
+EndGlobal

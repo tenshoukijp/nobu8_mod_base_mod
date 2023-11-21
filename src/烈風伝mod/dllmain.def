@@ -1,0 +1,3 @@
+LIBRARY —ó•—“`.mod
+EXPORTS
+	onInitialize = onInitialize @ 1
