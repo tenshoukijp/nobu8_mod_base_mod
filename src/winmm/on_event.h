@@ -3,8 +3,6 @@
 
 void onInitialize();
 
-void onGameInitialize();
-
-void onMciSendCommand();
+void onMmioOpenA(char* pszFileName, char* bufOverrideFileName);
 
 void onFinalize();

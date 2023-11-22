@@ -22,6 +22,16 @@ public class IJavaScriptStaticLib
     {
         烈風伝.StaticLib.onDestroyメインウィンドウ();
     }
+
+    public static String onRequestBGM(String filepath)
+    {
+        return 烈風伝.StaticLib.onRequestＢＧＭ(filepath);
+    }
+
+    public static String onRequestSound(String filepath)
+    {
+        return 烈風伝.StaticLib.onRequest効果音(filepath);
+    }
 }
 
 namespace 烈風伝.Helpers
@@ -334,6 +344,53 @@ namespace 烈風伝
             }
             return "";
         }
+
+        public static String onRequestＢＧＭ(String filepath)
+        {
+            try
+            {
+                dynamic jsObject = new ExpandoObject();
+                jsObject.ファイル名 = filepath;
+                dynamic ret = engine.Script.onRequestＢＧＭ(jsObject);
+                if (ret != null)
+                {
+                    if (ret.ファイル名 != null)
+                    {
+                        OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名.ToString());
+                        return ret.ファイル名.ToString();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream("onRequestフォントError:" + e.Message);
+            }
+            return "";
+        }
+
+        public static String onRequest効果音(String filepath)
+        {
+            try
+            {
+                dynamic jsObject = new ExpandoObject();
+                jsObject.ファイル名 = filepath;
+                dynamic ret = engine.Script.onRequest効果音(jsObject);
+                if (ret != null)
+                {
+                    if (ret.ファイル名 != null)
+                    {
+                        OutputDebugStream("効果音ファイル名:" + ret.ファイル名.ToString());
+                        return ret.ファイル名.ToString();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream("onRequestフォントError:" + e.Message);
+            }
+            return "";
+        }
+
 
         private static bool CreateScope()
         {

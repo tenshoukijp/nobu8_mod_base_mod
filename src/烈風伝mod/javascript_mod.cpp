@@ -6,10 +6,12 @@
 using PFNONCREATEWINDOW = void (WINAPI*)(HWND);
 using PFNONDESTROYWINDOW = void (WINAPI*)();
 using PFNONREQUESTFONT = char* (WINAPI*)();
+using PFNONMMIOOPENA = void (WINAPI*)(char*, char*);
 
 PFNONCREATEWINDOW pMod_onCreateWindow = NULL;
 PFNONDESTROYWINDOW pMod_onDestroyWindow = NULL;
 PFNONREQUESTFONT pMod_onRequestFont = NULL;
+PFNONMMIOOPENA pMod_onMmioOpenA = NULL;
 
 
 // óÛïóì`Mod.dllÇÃì«Ç›çûÇ›
@@ -65,5 +67,18 @@ void callJSModDestroyWindow() {
 
 		FreeLibrary(hJavaScriptModDll);
 		hJavaScriptModDll = NULL;
+	}
+}
+
+void callJSModMmioOpenA(char* pszFileName, char* bufOverrideFileName) {
+	if (hJavaScriptModDll) {
+		pMod_onMmioOpenA = (PFNONMMIOOPENA)GetProcAddress(hJavaScriptModDll, "onMmioOpenA");
+		if (pMod_onMmioOpenA) {
+			OutputDebugStream("callJSModMmioOpenA");
+			pMod_onMmioOpenA(pszFileName, bufOverrideFileName);
+		}
+		else {
+			OutputDebugStream("NOT callJSModMmioOpenA!!");
+		}
 	}
 }

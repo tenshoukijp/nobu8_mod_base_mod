@@ -15,5 +15,9 @@ public:
 
 	static String^ onRequestFont();
 
+	static String^ onRequestBGM(String^ filepath);
+
+	static String^ onRequestSound(String^ filepath);
+
 	static void onDestroyWindow();
 };

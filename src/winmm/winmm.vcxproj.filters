@@ -16,11 +16,11 @@
     <Filter Include="デバッグ出力">
       <UniqueIdentifier>{6ac47bde-4c32-4a88-b6f1-64e723114401}</UniqueIdentifier>
     </Filter>
-    <Filter Include="将星録Mod">
-      <UniqueIdentifier>{76872a86-5724-45b0-93cf-b443ed4dccd7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="プロセス">
       <UniqueIdentifier>{de08b900-1729-4679-a204-5682d053f2d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="烈風伝Mod">
+      <UniqueIdentifier>{76872a86-5724-45b0-93cf-b443ed4dccd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -39,11 +39,11 @@
     <ClInclude Include="on_event.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="loadmod.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="output_debug_stream.h">
       <Filter>デバッグ出力</Filter>
+    </ClInclude>
+    <ClInclude Include="loadmod.h">
+      <Filter>烈風伝Mod</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +60,7 @@
       <Filter>デバッグ出力</Filter>
     </ClCompile>
     <ClCompile Include="loadmod.cpp">
-      <Filter>将星録Mod</Filter>
+      <Filter>烈風伝Mod</Filter>
     </ClCompile>
     <ClCompile Include="process.cpp">
       <Filter>プロセス</Filter>

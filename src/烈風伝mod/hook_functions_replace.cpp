@@ -179,11 +179,11 @@ HFONT WINAPI Hook_CreateFontIndirectA(
 	HFONT hFont = NULL;
 	// ‚l‚r –¾’© ‚È‚ç «¯ –¾’©‚Ö
     if (std::string(lplf->lfFaceName) == "‚l‚r –¾’©") {
-		OutputDebugStream("ƒtƒHƒ“ƒg‚ðã‘‚«‚µ‚Ü‚·\n");
+		// OutputDebugStream("ƒtƒHƒ“ƒg‚ðã‘‚«‚µ‚Ü‚·\n");
         std::string strOverrideFontName = getNB8FontName();
         if (std::string(strOverrideFontName) != "") {
             strcpy_s((char*)lplf->lfFaceName, 31, strOverrideFontName.c_str()); // 
-            OutputDebugStream(strOverrideFontName);
+            // OutputDebugStream(strOverrideFontName);
             hFont = ((PFNCREATEFONTINDIRECTA)pfnOrigCreateFontIndirectA)(lplf);
             return hFont;
         }

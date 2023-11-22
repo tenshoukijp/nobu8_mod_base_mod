@@ -3,6 +3,7 @@
 #include <map>
 
 #include "output_debug_stream.h"
+#include "on_event.h"
 
 using namespace std;
 
@@ -398,13 +399,25 @@ extern "C" {
     __declspec(naked) void WINAPI d_mmioInstallIOProcA() { _asm { jmp p_mmioInstallIOProcA } }
     __declspec(naked) void WINAPI d_mmioInstallIOProcW() { _asm { jmp p_mmioInstallIOProcW } }
     
+    char bufOverrideFileName[1024] = "";
     HMMIO WINAPI d_mmioOpenA( LPSTR pszFileName, LPMMIOINFO pmmioinfo, DWORD fdwOpen ) {
+        // 全体をクリア
+        ZeroMemory(bufOverrideFileName, _countof(bufOverrideFileName));
+
         OutputDebugStream("onMmioOpenA\n");
         OutputDebugStream(pszFileName);
         OutputDebugStream("\r\n");
-        HMMIO hmmio = p_mmioOpenA(pszFileName, pmmioinfo, fdwOpen);
-        // mmioMap[hmmio] = pszFileName;
-        return hmmio;
+        onMmioOpenA(pszFileName, bufOverrideFileName);
+        // 有効な上書き情報が返ってきているならば、そのファイル名へと差し替え
+        if (strlen(bufOverrideFileName) > 0) {
+            OutputDebugStream("オーバーライドされたファイル名は:");
+            OutputDebugStream(bufOverrideFileName);
+            OutputDebugStream("\n");
+            return p_mmioOpenA(bufOverrideFileName, pmmioinfo, fdwOpen);
+        }
+        else {
+            return p_mmioOpenA(pszFileName, pmmioinfo, fdwOpen);
+        }
     }
 
     /*

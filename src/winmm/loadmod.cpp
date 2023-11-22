@@ -2,13 +2,12 @@
 #include "loadmod.h"
 
 using PFNONINITIALIZE = void (WINAPI*)(void*);
-extern PFNONINITIALIZE pMod_onInitialize;
-
 using PFNONFINALIZE = void (WINAPI*)();
-extern PFNONFINALIZE pMod_onFinalize;
+using PFNONMMIOOPENA = void (WINAPI*)(char*, char*);
 
 PFNONINITIALIZE pMod_onInitialize = NULL;
 PFNONFINALIZE   pMod_onFinalize = NULL;
+PFNONMMIOOPENA  pMod_onMmioOpenA = NULL;
 
 // óÛïóì`Mod.dllÇÃì«Ç›çûÇ›
 HMODULE hNB8ModDll = NULL;
@@ -39,4 +38,12 @@ void Mod_onInitialize() {
 		pMod_onInitialize(&hNB8Wnd);
 	}
 }
+
+void Mod_onMmioOpenA(char* pszFileName, char* bufOverrideFileName) {
+	pMod_onMmioOpenA = (PFNONMMIOOPENA)GetProcAddress(hNB8ModDll, "onMmioOpenA");
+	if (hNB8ModDll && pMod_onMmioOpenA) {
+		pMod_onMmioOpenA(pszFileName, bufOverrideFileName);
+	}
+}
+
 
