@@ -28,6 +28,8 @@ extern "C" __declspec(dllexport) void WINAPI onMmioOpenA(char* pszFileName, char
 	if (filepath->ToLower()->StartsWith("bgm\\") ) {
 		String^ ret = IJavaScriptStaticLib::onRequestBGM(filepath);
 		if (ret != nullptr) {
+			OutputDebugString(L"JavaScript.mod‚ÌonMmioOpenA\n");
+			System::Diagnostics::Trace::WriteLine(ret);
 			strcpy_s(bufOverrideFileName, 512, String_to_string(ret).c_str());
 		}
 	}

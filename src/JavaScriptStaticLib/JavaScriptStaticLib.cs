@@ -3,38 +3,38 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Microsoft.ClearScript;
 using Microsoft.ClearScript.V8;
-using 烈風伝.Helpers;
-using 烈風伝.Extensions;
+using ゲーム.Helpers;
+using ゲーム.Extensions;
 using System.Dynamic;
 
 public class IJavaScriptStaticLib
 {
     public static void onCreateWindow(int hWnd)
     {
-        烈風伝.StaticLib.onCreateメインウィンドウ(hWnd);
+        ゲーム.StaticLib.onCreateメインウィンドウ(hWnd);
     }
 
     public static String onRequestFont()
     {
-        return 烈風伝.StaticLib.onRequestフォント();
+        return ゲーム.StaticLib.onRequestフォント();
     }
     public static void onDestroyWindow()
     {
-        烈風伝.StaticLib.onDestroyメインウィンドウ();
+        ゲーム.StaticLib.onDestroyメインウィンドウ();
     }
 
     public static String onRequestBGM(String filepath)
     {
-        return 烈風伝.StaticLib.onRequestＢＧＭ(filepath);
+        return ゲーム.StaticLib.onRequest音楽(filepath);
     }
 
     public static String onRequestSound(String filepath)
     {
-        return 烈風伝.StaticLib.onRequest効果音(filepath);
+        return ゲーム.StaticLib.onRequest効果音(filepath);
     }
 }
 
-namespace 烈風伝.Helpers
+namespace ゲーム.Helpers
 {
     internal static class StringHelpers
     {
@@ -64,7 +64,7 @@ namespace 烈風伝.Helpers
 }
 
 
-namespace 烈風伝.Extensions
+namespace ゲーム.Extensions
 {
     internal static class ExceptionExtensions
     {
@@ -94,7 +94,7 @@ namespace 烈風伝.Extensions
     }
 }
 
-namespace 烈風伝
+namespace ゲーム
 {
     public class 烈風伝
     {
@@ -111,7 +111,7 @@ namespace 烈風伝
     }
 }
 
-namespace 烈風伝
+namespace ゲーム
 {
     internal class StaticLib
     {
@@ -334,7 +334,7 @@ namespace 烈風伝
                     if (ret.フォント名 != null)
                     {
                         OutputDebugStream("フォント名:" + ret.フォント名.ToString());
-                        return ret.フォント名.ToString();
+                        return ret.フォント名;
                     }
                 }
             }
@@ -345,25 +345,25 @@ namespace 烈風伝
             return "";
         }
 
-        public static String onRequestＢＧＭ(String filepath)
+        public static String onRequest音楽(String filepath)
         {
             try
             {
                 dynamic jsObject = new ExpandoObject();
                 jsObject.ファイル名 = filepath;
-                dynamic ret = engine.Script.onRequestＢＧＭ(jsObject);
+                dynamic ret = engine.Script.onRequest音楽(jsObject);
                 if (ret != null)
                 {
                     if (ret.ファイル名 != null)
                     {
-                        OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名.ToString());
-                        return ret.ファイル名.ToString();
+                        OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名);
+                        return ret.ファイル名;
                     }
                 }
             }
             catch (Exception e)
             {
-                OutputDebugStream("onRequestフォントError:" + e.Message);
+                OutputDebugStream("onRequest音楽Error:" + e.Message);
             }
             return "";
         }
@@ -379,14 +379,14 @@ namespace 烈風伝
                 {
                     if (ret.ファイル名 != null)
                     {
-                        OutputDebugStream("効果音ファイル名:" + ret.ファイル名.ToString());
-                        return ret.ファイル名.ToString();
+                        OutputDebugStream("効果音ファイル名:" + ret.ファイル名);
+                        return ret.ファイル名;
                     }
                 }
             }
             catch (Exception e)
             {
-                OutputDebugStream("onRequestフォントError:" + e.Message);
+                OutputDebugStream("onRequest効果音Error:" + e.Message);
             }
             return "";
         }
