@@ -4,11 +4,9 @@
 
 #include "output_debug_stream.h"
 #include "on_event.h"
+#include "mmsystem.h"
 
 using namespace std;
-
-#include "on_event.h"
-#include "mmsystem.h"
 
 HINSTANCE hOriginalDll;
 
