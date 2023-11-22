@@ -74,11 +74,13 @@
   <ItemGroup>
     <ClInclude Include="JavaScript.mod.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="string_convert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AssemblyInfo.cpp" />
     <ClCompile Include="export_func.cpp" />
     <ClCompile Include="JavaScript.mod.cpp" />
+    <ClCompile Include="string_convert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app.rc" />

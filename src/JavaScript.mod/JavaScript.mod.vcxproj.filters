@@ -19,6 +19,9 @@
     <Filter Include="モジュール定義">
       <UniqueIdentifier>{41698c86-5fb0-43e1-ae0e-a4e89480248f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="文字列変換">
+      <UniqueIdentifier>{90f0e7e4-11d7-45ff-b0a3-34b4a847df14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -26,6 +29,9 @@
     </ClInclude>
     <ClInclude Include="JavaScript.mod.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="string_convert.h">
+      <Filter>文字列変換</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +43,9 @@
     </ClCompile>
     <ClCompile Include="export_func.cpp">
       <Filter>エキスポート関数</Filter>
+    </ClCompile>
+    <ClCompile Include="string_convert.cpp">
+      <Filter>文字列変換</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

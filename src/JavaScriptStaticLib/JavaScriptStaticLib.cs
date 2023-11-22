@@ -11,14 +11,16 @@ public class IJavaScriptStaticLib
 {
     public static void onCreateWindow(int hWnd)
     {
-        System.Diagnostics.Trace.WriteLine("C#からonCreateWindow");
-        烈風伝.StaticLib.onウィンドウ生成時(hWnd);
+        烈風伝.StaticLib.onCreateメインウィンドウ(hWnd);
     }
 
+    public static String onRequestFont()
+    {
+        return 烈風伝.StaticLib.onRequestフォント();
+    }
     public static void onDestroyWindow()
     {
-        System.Diagnostics.Trace.WriteLine("C#からonDestroyWindow");
-        烈風伝.StaticLib.onウィンドウ破棄時();
+        烈風伝.StaticLib.onDestroyメインウィンドウ();
     }
 }
 
@@ -297,21 +299,41 @@ namespace 烈風伝
         }
 
 
-        public static void onウィンドウ生成時(int hWnd)
+        public static void onCreateメインウィンドウ(int hWnd)
         {
             try
             {
                 DoFile("JavaScript.mod.js");
                 dynamic jsObject = new ExpandoObject();
                 jsObject.ウィンドウハンドル = hWnd;
-                engine.Script.onウィンドウ生成時(jsObject);
+                engine.Script.onCreateメインウィンドウ(jsObject);
             }
             catch (Exception e)
             {
-                OutputDebugStream("onウィンドウ生成時Error:" + e.Message);
+                OutputDebugStream("onCreateメインウィンドウError:" + e.Message);
             }
         }
 
+        public static String onRequestフォント()
+        {
+            try
+            {
+                dynamic ret = engine.Script.onRequestフォント();
+                if (ret != null)
+                {
+                    if (ret.フォント名 != null)
+                    {
+                        OutputDebugStream("フォント名:" + ret.フォント名.ToString());
+                        return ret.フォント名.ToString();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream("onRequestフォントError:" + e.Message);
+            }
+            return "";
+        }
 
         private static bool CreateScope()
         {
@@ -451,17 +473,17 @@ namespace 烈風伝
             return false;
         }
 
-        public static void onウィンドウ破棄時()
+        public static void onDestroyメインウィンドウ()
         {
             if (engine != null)
             {
                 try
                 {
-                    engine.Script.onウィンドウ破棄時();
+                    engine.Script.onDestroyメインウィンドウ();
                 }
                 catch (Exception e)
                 {
-                    OutputDebugStream("onウィンドウ破棄時Error:" + e.Message);
+                    OutputDebugStream("onDestroyメインウィンドウError:" + e.Message);
                 }
             }
             DestroyEngine();

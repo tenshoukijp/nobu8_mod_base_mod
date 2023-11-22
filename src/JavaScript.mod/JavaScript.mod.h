@@ -13,5 +13,7 @@ public ref class IJavaScriptStaticLib
 public:
 	static void onCreateWindow(int hWnd);
 
+	static String^ onRequestFont();
+
 	static void onDestroyWindow();
 };

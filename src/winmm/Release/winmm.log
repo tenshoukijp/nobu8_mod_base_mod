@@ -1,8 +1,7 @@
 ﻿  dllextern.cpp
   dllmain.cpp
   loadmod.cpp
-  on_finalize.cpp
-  on_initialize.cpp
+  on_event.cpp
   output_debug_stream.cpp
   process.cpp
      ライブラリ C:\Users\master\source\repos\烈風伝Mod\Release\WinMM.lib とオブジェクト C:\Users\master\source\repos\烈風伝Mod\Release\WinMM.exp を作成中

@@ -158,17 +158,8 @@ HFONT WINAPI Hook_CreateFontA(
     DWORD  iPitchAndFamily,
     LPCSTR pszFaceName
 ) {
-    OutputDebugStream("フォント名:%s\n", pszFaceName);
-    HFONT hFont = NULL;
-    // ＭＳ 明朝 なら 将星 明朝へ
-    if (std::string(pszFaceName) == "ＭＳ 明朝") {
-        OutputDebugStream("フォントを上書きします\n");
-        char* pOverrideFontName = getNB8FontName();
-        hFont = ((PFNCREATEFONTA)pfnOrigCreateFontA)(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pOverrideFontName);
-    }
-    else {
-        hFont = ((PFNCREATEFONTA)pfnOrigCreateFontA)(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName);
-    }
+    // ここは通過しないみたい。
+    HFONT hFont = ((PFNCREATEFONTA)pfnOrigCreateFontA)(cHeight, cWidth, cEscapement, cOrientation, cWeight, bItalic, bUnderline, bStrikeOut, iCharSet, iOutPrecision, iClipPrecision, iQuality, iPitchAndFamily, pszFaceName);
     // フォントファミリーを指定のもので上書きする
     return hFont;
 }
@@ -184,18 +175,22 @@ PROC pfnOrigCreateFontIndirectA = GetProcAddress(GetModuleHandleA("gdi32.dll"), 
 HFONT WINAPI Hook_CreateFontIndirectA(
     const LOGFONTA* lplf   // フォントの論理的な特性を指定する LOGFONT 構造体へのポインタ
 ) {
-	OutputDebugStream("フォント名:%s\n", lplf->lfFaceName);
+	// OutputDebugStream("フォント名:%s\n", lplf->lfFaceName);
 	HFONT hFont = NULL;
 	// ＭＳ 明朝 なら 将星 明朝へ
     if (std::string(lplf->lfFaceName) == "ＭＳ 明朝") {
 		OutputDebugStream("フォントを上書きします\n");
-		char* pOverrideFontName = getNB8FontName();
-        strcpy_s((char *)lplf->lfFaceName, 31, pOverrideFontName);
-        hFont = ((PFNCREATEFONTINDIRECTA)pfnOrigCreateFontIndirectA)(lplf);
+        std::string strOverrideFontName = getNB8FontName();
+        if (std::string(strOverrideFontName) != "") {
+            strcpy_s((char*)lplf->lfFaceName, 31, strOverrideFontName.c_str()); // 
+            OutputDebugStream(strOverrideFontName);
+            hFont = ((PFNCREATEFONTINDIRECTA)pfnOrigCreateFontIndirectA)(lplf);
+            return hFont;
+        }
 	}
-    else {
-		hFont = ((PFNCREATEFONTINDIRECTA)pfnOrigCreateFontIndirectA)(lplf);
-	}
+
+    hFont = ((PFNCREATEFONTINDIRECTA)pfnOrigCreateFontIndirectA)(lplf);
+	
 	// フォントファミリーを指定のもので上書きする
 	return hFont;
 }

@@ -21,6 +21,7 @@ Class IJavaScriptStaticLib: AutoLayout, AnsiClass, Class, Public, BeforeFieldIni
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName
   Methods:
     onCreateWindow(Int32): PrivateScope, Public, Static, HideBySig
+    onRequestFont(): PrivateScope, Public, Static, HideBySig
     onDestroyWindow(): PrivateScope, Public, Static, HideBySig
 Class 烈風伝.JSConsole: AutoLayout, AnsiClass, Class, Public, Sealed, BeforeFieldInit
     Void .ctor(): PrivateScope, Public, HideBySig, SpecialName, RTSpecialName

@@ -1,4 +1,5 @@
 LIBRARY JavaScript.mod
 EXPORTS
 	onCreateWindow = onCreateWindow @ 1
-	onDestroyWindow = onDestroyWindow @ 2
+	onRequestFont = onRequestFont @ 2
+	onDestroyWindow = onDestroyWindow @ 3

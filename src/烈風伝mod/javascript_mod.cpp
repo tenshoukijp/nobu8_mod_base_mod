@@ -5,9 +5,11 @@
 
 using PFNONCREATEWINDOW = void (WINAPI*)(HWND);
 using PFNONDESTROYWINDOW = void (WINAPI*)();
+using PFNONREQUESTFONT = char* (WINAPI*)();
 
 PFNONCREATEWINDOW pMod_onCreateWindow = NULL;
 PFNONDESTROYWINDOW pMod_onDestroyWindow = NULL;
+PFNONREQUESTFONT pMod_onRequestFont = NULL;
 
 
 // óÛïóì`Mod.dllÇÃì«Ç›çûÇ›
@@ -31,6 +33,22 @@ void callJSModCreateWindow(HWND hWnd) {
 			OutputDebugStream("NOT callJSModCreateWindow!!");
 		}
 	}
+}
+
+std::string bufRequestFont = "";
+std::string callJSModRequestFont() {
+	if (hJavaScriptModDll) {
+		pMod_onRequestFont = (PFNONREQUESTFONT)GetProcAddress(hJavaScriptModDll, "onRequestFont");
+		if (pMod_onRequestFont) {
+			OutputDebugStream("callJSModRequestFont");
+			bufRequestFont = pMod_onRequestFont();
+			return bufRequestFont;
+		}
+		else {
+			OutputDebugStream("NOT callJSModRequestFont!!");
+		}
+	}
+	return bufRequestFont;
 }
 
 void callJSModDestroyWindow() {
