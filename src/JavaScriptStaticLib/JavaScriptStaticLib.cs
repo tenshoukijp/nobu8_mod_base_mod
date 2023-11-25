@@ -6,6 +6,7 @@ using Microsoft.ClearScript.V8;
 using ゲーム.Helpers;
 using ゲーム.Extensions;
 using System.Dynamic;
+using Microsoft.ClearScript.JavaScript;
 
 public class IJavaScriptStaticLib
 {
@@ -94,22 +95,6 @@ namespace ゲーム.Extensions
     }
 }
 
-namespace ゲーム
-{
-    public class 烈風伝
-    {
-        public static object _require(string filepath)
-        {
-            return StaticLib.require(filepath);
-        }
-
-        public static void _debuginfo(params Object[] expressions)
-        {
-            StaticLib.debuginfo(expressions);
-        }
-
-    }
-}
 
 namespace ゲーム
 {
@@ -185,129 +170,6 @@ namespace ゲーム
             String joind = String.Join(" ", list);
             OutputDebugStream(joind);
         }
-
-        public static object require(string filepath)
-        {
-            var m_file_path = "";
-            if (filepath.ToLower().EndsWith(".json"))
-            {
-                if (System.IO.File.Exists(".\\" + filepath))
-                {
-                    m_file_path = ".\\" + filepath;
-                }
-                if (System.IO.File.Exists(filepath))
-                {
-                    if (filepath.Contains(@"\") || filepath.Contains(@"/"))
-                    {
-                        m_file_path = filepath;
-                    }
-                }
-
-                if (m_file_path == "")
-                {
-                    var err = new System.IO.FileNotFoundException("RequireFileNotFoundException: " + filepath);
-                    OutputDebugStream("RequireFileNotFoundException: " + filepath);
-                    return err;
-                }
-
-                var json_data = System.IO.File.ReadAllText(m_file_path);
-                return engine.Script.JSON.parse(json_data);
-            }
-
-            if (System.IO.File.Exists(".\\" + filepath + ".js"))
-            {
-                m_file_path = ".\\" + filepath + ".js";
-            }
-            else if (System.IO.File.Exists(".\\" + filepath))
-            {
-                m_file_path = ".\\" + filepath;
-            }
-            else if (System.IO.File.Exists(filepath + ".js"))
-            {
-                if (filepath.Contains(@"\") || filepath.Contains(@"/"))
-                {
-                    m_file_path = filepath + ".js";
-                }
-            }
-            else if (System.IO.File.Exists(filepath))
-            {
-                if (filepath.Contains(@"\") || filepath.Contains(@"/"))
-                {
-                    m_file_path = filepath;
-                }
-            }
-
-            if (m_file_path == "")
-            {
-                if (filepath.ToLower().EndsWith(".js"))
-                {
-                    var err = new System.IO.FileNotFoundException("RequireFileNotFoundException: " + filepath);
-                    OutputDebugStream("RequireFileNotFoundException: " + filepath);
-                    return err;
-                }
-                else
-                {
-                    var err = new System.IO.FileNotFoundException("RequireFileNotFoundException: " + filepath + ".js");
-                    OutputDebugStream("RequireFileNotFoundException: " + filepath + ".js");
-                    return err;
-                }
-            }
-
-            var module_code = System.IO.File.ReadAllText(m_file_path);
-            // exportsが空 =(Object.keys(exports).length == 0 || exports.constructor == Object) でないなら、
-            // exportsを返す。それ以外は、module.exportsを返す。
-            var expression = "(function(){ var module = { exports: {} }; var exports = module.exports; " +
-            module_code + "; " + "\nreturn module.exports; })()";
-
-            Object eval_obj = null;
-
-            try
-            {
-                // 文字列からソース生成
-                eval_obj = engine.Evaluate(expression);
-            }
-            catch (ScriptEngineException e)
-            {
-                OutputDebugStream("in " + m_file_path);
-                OutputDebugStream(e.GetType().Name + ":");
-                OutputDebugStream(e.ErrorDetails);
-
-                var stack = engine.GetStackTrace();
-                OutputDebugStream(stack.ToString());
-
-                ScriptEngineException next = e.InnerException as ScriptEngineException;
-                while (next != null)
-                {
-                    OutputDebugStream(next.ErrorDetails);
-                    next = next.InnerException as ScriptEngineException;
-                }
-            }
-            catch (ScriptInterruptedException e)
-            {
-                OutputDebugStream("in " + m_file_path);
-                OutputDebugStream(e.GetType().Name + ":");
-                OutputDebugStream(e.ErrorDetails);
-
-                var stack = engine.GetStackTrace();
-                OutputDebugStream(stack.ToString());
-
-                ScriptInterruptedException next = e.InnerException as ScriptInterruptedException;
-                while (next != null)
-                {
-                    OutputDebugStream(next.ErrorDetails);
-                    next = next.InnerException as ScriptInterruptedException;
-                }
-            }
-            catch (Exception e)
-            {
-                OutputDebugStream("in " + m_file_path);
-                OutputDebugStream(e.GetType().Name + ":");
-                OutputDebugStream(e.Message);
-            }
-
-            return eval_obj;
-        }
-
 
         public static void onCreateメインウィンドウ(int hWnd)
         {
@@ -404,6 +266,7 @@ namespace ゲーム
                     engine.DefaultAccess = ScriptAccess.Full;
                     engine.SuppressExtensionMethodEnumeration = true;
                     engine.AllowReflection = true;
+                    engine.DocumentSettings.AccessFlags = DocumentAccessFlags.EnableAllLoading;
 
                     engine.AddHostObject("clr", new HostTypeCollection("mscorlib", "System", "System.Core"));
                     engine.AddHostObject("", HostItemFlags.GlobalMembers, new HostTypeCollection("mscorlib", "System", "System.Core"));
@@ -412,8 +275,9 @@ namespace ゲーム
                     engine.AddHostType("烈風伝", typeof(烈風伝));
                     console = new JSConsole();
                     engine.AddHostType("console", typeof(JSConsole));
+                    // engine.Execute(new DocumentInfo { Category = ModuleCategory.CommonJS }, "globalThis.require = require");
+                    engine.Execute(new DocumentInfo { Category = ModuleCategory.CommonJS }, "globalThis.require = require");
                     String expression = @"
-                        require = 烈風伝._require;
                         デバッグ出力 = 烈風伝._debuginfo;
                     ";
                     engine.Execute(expression);
