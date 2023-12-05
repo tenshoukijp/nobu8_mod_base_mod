@@ -97,6 +97,7 @@
     <ClInclude Include="game_test.h" />
     <ClInclude Include="game_window.h" />
     <ClInclude Include="hook_functions_replace.h" />
+    <ClInclude Include="hook_readfile_custom.h" />
     <ClInclude Include="javascript_mod.h" />
     <ClInclude Include="mng_文字列変換.h" />
     <ClInclude Include="output_debug_stream.h" />
@@ -111,6 +112,7 @@
     <ClCompile Include="game_window.cpp" />
     <ClCompile Include="hook_defwindowproca_custom.cpp" />
     <ClCompile Include="hook_functions_replace.cpp" />
+    <ClCompile Include="hook_readfile_custom.cpp" />
     <ClCompile Include="hook_setmenu_custom.cpp" />
     <ClCompile Include="javascript_mod.cpp" />
     <ClCompile Include="mng_文字列変換.cpp" />

@@ -81,6 +81,9 @@
     <ClInclude Include="mng_文字列変換.h">
       <Filter>文字列変換</Filter>
     </ClInclude>
+    <ClInclude Include="hook_readfile_custom.h">
+      <Filter>フック関数置き換え系</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game_process.cpp">
@@ -121,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="mng_文字列変換.cpp">
       <Filter>文字列変換</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_readfile_custom.cpp">
+      <Filter>フック関数置き換え系</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

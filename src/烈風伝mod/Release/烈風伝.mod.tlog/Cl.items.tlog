@@ -7,6 +7,7 @@ C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\game_test.cpp;C:\Users\ma
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\game_window.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\game_window.obj
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_defwindowproca_custom.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\hook_defwindowproca_custom.obj
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_functions_replace.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\hook_functions_replace.obj
+C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_readfile_custom.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\hook_readfile_custom.obj
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_setmenu_custom.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\hook_setmenu_custom.obj
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\javascript_mod.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\javascript_mod.obj
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\mng_文字列変換.cpp;C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\Release\mng_文字列変換.obj
