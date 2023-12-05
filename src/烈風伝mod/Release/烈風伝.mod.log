@@ -9,6 +9,7 @@
   hook_functions_replace.cpp
   hook_setmenu_custom.cpp
   javascript_mod.cpp
+  mng_文字列変換.cpp
   output_debug_stream.cpp
   .NETFramework,Version=v4.8.AssemblyAttributes.cpp
      ライブラリ C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.lib とオブジェクト C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.exp を作成中
