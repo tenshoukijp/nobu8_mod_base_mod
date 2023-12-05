@@ -191,14 +191,16 @@ namespace ゲーム
             try
             {
                 dynamic ret = engine.Script.onRequestフォント();
-                if (ret != null)
+                if (ret is Undefined)
                 {
-                    if (ret.フォント名 != null)
-                    {
-                        OutputDebugStream("フォント名:" + ret.フォント名.ToString());
-                        return ret.フォント名;
-                    }
+                    return "";
                 }
+                if (ret.フォント名 is Undefined)
+                {
+                    return "";
+                }
+                OutputDebugStream("フォント名:" + ret.フォント名.ToString());
+                return ret.フォント名;
             }
             catch (Exception e)
             {
@@ -214,14 +216,16 @@ namespace ゲーム
                 dynamic jsObject = new ExpandoObject();
                 jsObject.ファイル名 = filepath;
                 dynamic ret = engine.Script.onRequest音楽(jsObject);
-                if (ret != null)
+                if (ret is Undefined)
                 {
-                    if (ret.ファイル名 != null)
-                    {
-                        OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名);
-                        return ret.ファイル名;
-                    }
+                    return "";
                 }
+                if (ret.ファイル名 is Undefined)
+                {
+                    return "";
+                }
+                OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名);
+                return ret.ファイル名;
             }
             catch (Exception e)
             {
@@ -237,14 +241,16 @@ namespace ゲーム
                 dynamic jsObject = new ExpandoObject();
                 jsObject.ファイル名 = filepath;
                 dynamic ret = engine.Script.onRequest効果音(jsObject);
-                if (ret != null)
+                if (ret is Undefined)
                 {
-                    if (ret.ファイル名 != null)
-                    {
-                        OutputDebugStream("効果音ファイル名:" + ret.ファイル名);
-                        return ret.ファイル名;
-                    }
+                    return "";
                 }
+                if (ret.ファイル名 is Undefined)
+                {
+                    return "";
+                }
+                OutputDebugStream("効果音ファイル名:" + ret.ファイル名);
+                return ret.ファイル名;
             }
             catch (Exception e)
             {

@@ -21,14 +21,14 @@ void callJSModDestroyWindow() {
 void callJSModMmioOpenA(char* pszFileName, char* bufOverrideFileName) {
 	System::String^ filepath = gcnew System::String(pszFileName);
 	if (filepath->ToLower()->StartsWith("bgm\\")) {
-		System::String^ ret = IJavaScriptMod::onRequestBGM(filepath);
+		System::String^ ret = IJavaScriptMod::onRequestBGM(filepath->ToLower());
 		if (ret != nullptr) {
 			OutputDebugString("JavaScript.mod‚ÌonMmioOpenA\n");
 			strcpy_s(bufOverrideFileName, 512, to_native_string(ret).c_str());
 		}
 	}
 	else {
-		System::String^ ret = IJavaScriptMod::onRequestSound(filepath);
+		System::String^ ret = IJavaScriptMod::onRequestSound(filepath->ToLower());
 		if (ret != nullptr) {
 			strcpy_s(bufOverrideFileName, 512, to_native_string(ret).c_str());
 		}
