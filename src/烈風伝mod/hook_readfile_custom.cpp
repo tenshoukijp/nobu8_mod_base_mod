@@ -7,6 +7,7 @@
 
 #include "hook_readfile_custom.h"
 #include "output_debug_stream.h"
+#include "javascript_mod.h"
 
 
 // 顔の画像は幅が96, 高さが120。マジックナンバーになってしまうが、今後変更になったりは永久にしないため、そのまま埋め込む。(そっちの方が定数名使うよりわかりやすい)
@@ -35,8 +36,14 @@ BOOL Hook_ReadFileCustom_BushouKao(
 ) {
 
     char filenameBuf[512] = "";
-    sprintf_s(filenameBuf, "KAODATA\\%04d.bmp", nTargetKaoID);
-    OutputDebugStream("★★★はあるか？%s\n" ,filenameBuf);
+    std::string jsOverridePath = callJSModRequestBushouKaoID(nTargetKaoID);
+    if (jsOverridePath != "") {
+        strcpy_s(filenameBuf, jsOverridePath.c_str());
+    }
+    else {
+        sprintf_s(filenameBuf, "KAODATA\\%04d.bmp", nTargetKaoID);
+    }
+
     std::string filename = filenameBuf;
     if (!fileExists(filename)) {
         return FALSE;
@@ -100,8 +107,14 @@ BOOL Hook_ReadFileCustom_KahouPic(
 ) {
 
     char filenameBuf[512] = "";
-    sprintf_s(filenameBuf, "ITEMCG\\%03d.bmp", nTargetKahouGazouID);
-    OutputDebugStream("★★★はあるか？%s\n", filenameBuf);
+    std::string jsOverridePath = callJSModRequestKahouPicID(nTargetKahouGazouID);
+    if (jsOverridePath != "") {
+        strcpy_s(filenameBuf, jsOverridePath.c_str());
+    }
+    else {
+        sprintf_s(filenameBuf, "ITEMCG\\%03d.bmp", nTargetKahouGazouID);
+    }
+
     std::string filename = filenameBuf;
     if (!fileExists(filename)) {
         return FALSE;
