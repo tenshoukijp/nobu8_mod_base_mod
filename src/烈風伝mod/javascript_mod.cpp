@@ -45,3 +45,9 @@ std::string callJSModRequestKahouPicID(int iPicID) {
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
 	return to_native_string(filepath);
 }
+
+std::string callJSModRequestFile(const char* pszFileName) {
+	System::String^ filepath = IJavaScriptMod::onRequestFile(gcnew System::String(pszFileName));
+	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
+	return to_native_string(filepath);
+}

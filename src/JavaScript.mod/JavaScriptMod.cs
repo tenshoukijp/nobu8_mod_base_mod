@@ -41,6 +41,10 @@ public class IJavaScriptMod
     {
         return ゲーム.StaticLib.onRequest家宝画像(PicID);
     }
+    public static String onRequestFile(String filepath)
+    {
+        return ゲーム.StaticLib.onRequestファイル(filepath);
+    }
 
 }
 
@@ -317,6 +321,30 @@ namespace ゲーム
             return "";
         }
 
+        public static String onRequestファイル(string filename)
+        {
+            try
+            {
+                dynamic jsObject = new ExpandoObject();
+                jsObject.ファイル名 = filename;
+                dynamic ret = engine.Script.onRequestファイル(jsObject);
+                if (ret is Undefined)
+                {
+                    return "";
+                }
+                if (ret.ファイル名 is Undefined)
+                {
+                    return "";
+                }
+                OutputDebugStream("ファイル名:" + ret.ファイル名);
+                return ret.ファイル名;
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream("onRequestファイルError:" + e.Message);
+            }
+            return "";
+        }
 
         private static bool CreateScope()
         {

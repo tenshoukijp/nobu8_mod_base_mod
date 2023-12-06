@@ -13,3 +13,5 @@ void callJSModDestroyWindow();
 std::string callJSModRequestBushouKaoID(int iKaoID);
 
 std::string callJSModRequestKahouPicID(int iPicID);
+
+std::string callJSModRequestFile(const char* pszFileName);

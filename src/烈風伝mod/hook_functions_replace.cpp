@@ -18,6 +18,7 @@
 // #include "hook_textouta_custom.h"
 
 #include "hook_readfile_custom.h"
+#include "javascript_mod.h"
 
 
 
@@ -271,8 +272,19 @@ HANDLE WINAPI Hook_CreateFileA(
     nTargetKaoID = -1;
     nTargetKahouGazouID = -1;
 
-    // 元のもの
-    HANDLE nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+    HANDLE nResult;
+
+    // JS側からファイル名の変更要求があれば、ぞれ。
+    string overrideFilePath = callJSModRequestFile(lpFileName);
+    if (overrideFilePath.size() > 0) {
+        OutputDebugStream("ファイル名を上書きします。%s\n", overrideFilePath.c_str());
+        nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(overrideFilePath.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+    }
+    else {
+        // 元のもの
+        nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+    }
+
     string filename = string(lpFileName);
     std::transform(filename.begin(), filename.end(), filename.begin(), [](unsigned char c) { return std::toupper(c); });
     if (filename == "KAODATA.NB8") {
@@ -429,6 +441,21 @@ void hookFunctionsReplace() {
         pfnOrig = ::GetProcAddress(GetModuleHandleA("user32.dll"), "ReleaseDC");
         ReplaceIATEntryInAllMods("user32.dll", pfnOrig, (PROC)Hook_ReleaseDC);
     }
+    if (!isHookCreateFileA) {
+        isHookCreateFileA = true;
+        pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "CreateFileA");
+        ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_CreateFileA);
+    }
+    if (!isHookSetFilePointer) {
+		isHookSetFilePointer = true;
+		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "SetFilePointer");
+		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_SetFilePointer);
+	}
+    if (!isHookReadFile) {
+		isHookReadFile = true;
+		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFile");
+		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_ReadFile);
+	}
     if (!isHookIsDebuggerPresent) {
         isHookIsDebuggerPresent = true;
         pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "IsDebuggerPresent");
