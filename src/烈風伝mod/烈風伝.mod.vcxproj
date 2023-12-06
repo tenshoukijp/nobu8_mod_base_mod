@@ -114,6 +114,7 @@
     <ClCompile Include="game_window.cpp" />
     <ClCompile Include="hook_defwindowproca_custom.cpp" />
     <ClCompile Include="hook_functions_replace.cpp" />
+    <ClCompile Include="hook_movie_filename.cpp" />
     <ClCompile Include="hook_readfile_custom.cpp" />
     <ClCompile Include="hook_setmenu_custom.cpp" />
     <ClCompile Include="javascript_mod.cpp" />

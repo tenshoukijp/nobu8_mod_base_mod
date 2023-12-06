@@ -52,6 +52,9 @@
     <Filter Include="ファイル">
       <UniqueIdentifier>{49533bd0-ef07-4cb3-a7e9-57651f53efdb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ムービー">
+      <UniqueIdentifier>{08c190f4-d9ae-4886-943a-861d303588b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="file_attribute.cpp">
       <Filter>ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_movie_filename.cpp">
+      <Filter>ムービー</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
