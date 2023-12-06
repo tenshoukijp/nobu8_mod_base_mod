@@ -40,6 +40,14 @@ std::string callJSModRequestBushouKaoID(int iKaoID) {
 	return to_native_string(filepath);
 }
 
+std::string callJSModRequestHimeKaoID(int iKaoID) {
+	//System::String^ filepath = IJavaScriptMod::onRequestKaoID(iKaoID);
+	//if (System::String::IsNullOrEmpty(filepath)) { return ""; }
+	//return to_native_string(filepath);
+	return "";
+}
+
+
 std::string callJSModRequestKahouPicID(int iPicID) {
 	System::String^ filepath = IJavaScriptMod::onRequestKahouPicID(iPicID);
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }

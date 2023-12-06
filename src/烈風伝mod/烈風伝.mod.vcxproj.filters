@@ -49,6 +49,9 @@
     <Filter Include="文字列変換">
       <UniqueIdentifier>{4ad314f8-54da-4124-b1c5-4ebed0379532}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ファイル">
+      <UniqueIdentifier>{49533bd0-ef07-4cb3-a7e9-57651f53efdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -83,6 +86,9 @@
     </ClInclude>
     <ClInclude Include="hook_readfile_custom.h">
       <Filter>フック関数置き換え系</Filter>
+    </ClInclude>
+    <ClInclude Include="file_attribute.h">
+      <Filter>ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </ClCompile>
     <ClCompile Include="hook_readfile_custom.cpp">
       <Filter>フック関数置き換え系</Filter>
+    </ClCompile>
+    <ClCompile Include="file_attribute.cpp">
+      <Filter>ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@
 // #include "onigwrap.h"
 // #include "on_event.h"
 // #include "hook_textouta_custom.h"
-
+#include "file_attribute.h"
 #include "hook_readfile_custom.h"
 #include "javascript_mod.h"
 
@@ -254,9 +254,11 @@ using PFNCREATEFILEA = HANDLE(WINAPI*)(LPCSTR, DWORD, DWORD, LPSECURITY_ATTRIBUT
 
 PROC pfnOrigCreateFileA = GetProcAddress(GetModuleHandleA("kernel32.dll"), "CreateFileA");
 int nTargetKaoID = -1;
+int nTargetHimeKaoID = -1;
 int nTargetKahouGazouID = -1;
 // extern HANDLE Hook_CreateFileACustom(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 HANDLE hFileKAODATA = NULL;
+HANDLE hFileHIMEDATA = NULL;
 HANDLE hFileITEMDATA = NULL;
 HANDLE WINAPI Hook_CreateFileA(
     LPCSTR lpFileName, // ファイル名
@@ -275,12 +277,19 @@ HANDLE WINAPI Hook_CreateFileA(
     HANDLE nResult;
 
     // JS側からファイル名の変更要求があれば、ぞれ。
-    string overrideFilePath = callJSModRequestFile(lpFileName);
-    if (overrideFilePath.size() > 0) {
-        OutputDebugStream("ファイル名を上書きします。%s\n", overrideFilePath.c_str());
-        nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(overrideFilePath.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+    // string jsOverrideFilePath = callJSModRequestFile(lpFileName);
+    // 
+    // デフォルトでチェックするオーバーライドファイル
+    string dfOverrideFilePath = string("OVERRIDE\\") + lpFileName;
+    /*
+    if (jsOverrideFilePath.size() > 0) {
+        OutputDebugStream("ファイル名を上書きします。%s\n", jsOverrideFilePath.c_str());
+        nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(jsOverrideFilePath.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
     }
-    else {
+    else*/ if (isFileExists(dfOverrideFilePath)) {
+        // 元のもの
+        nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(dfOverrideFilePath.c_str(), dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
+    } else {
         // 元のもの
         nResult = ((PFNCREATEFILEA)pfnOrigCreateFileA)(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
     }
@@ -290,6 +299,10 @@ HANDLE WINAPI Hook_CreateFileA(
     if (filename == "KAODATA.NB8") {
         OutputDebugStream("CreateFileA:" + std::string(lpFileName) + "\n");
         hFileKAODATA = nResult;
+    }
+    else if (filename == "HIMEDATA.NB8") {
+        OutputDebugStream("CreateFileA:" + std::string(lpFileName) + "\n");
+        hFileHIMEDATA = nResult;
     }
     else if (filename == "ITEMCG.NB8") {
         OutputDebugStream("CreateFileA:" + std::string(lpFileName) + "\n");
@@ -315,6 +328,7 @@ DWORD WINAPI Hook_SetFilePointer(
     // Hook_SetFilePointerCustom(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod);
 
     nTargetKaoID = -1;
+    nTargetHimeKaoID = -1;
     nTargetKahouGazouID = -1;
     // 元のもの
     DWORD nResult = ((PFNSETFILEPOINTER)pfnOrigSetFilePointer)(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod);
@@ -324,6 +338,14 @@ DWORD WINAPI Hook_SetFilePointer(
         const int header_size = file_org_size - pic_data_size;
         nTargetKaoID = (lDistanceToMove - header_size) / (KAO_PIC_WIDTH * KAO_PIC_HIGHT);
         OutputDebugStream("顔SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
+        OutputDebugStream("顔ID:%d\n", nTargetKaoID);
+    }
+    else if (hFileHIMEDATA == hFile) {
+        const int pic_data_size = (KAO_PIC_WIDTH * KAO_PIC_HIGHT) * 64; // 1677個の顔画像が入っている
+        const int file_org_size = 738308; // KAODATA.NB8のファイルサイズ
+        const int header_size = file_org_size - pic_data_size;
+        nTargetHimeKaoID = (lDistanceToMove - header_size) / (KAO_PIC_WIDTH * KAO_PIC_HIGHT);
+        OutputDebugStream("姫顔SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
         OutputDebugStream("顔ID:%d\n", nTargetKaoID);
     }
     else if (hFileITEMDATA == hFile) {
@@ -345,6 +367,7 @@ using PFNREADFILE = BOOL(WINAPI*)(HANDLE, LPVOID, DWORD, LPDWORD, LPOVERLAPPED);
 PROC pfnOrigReadFile = GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFile");
 
 extern BOOL Hook_ReadFileCustom_BushouKao(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
+extern BOOL Hook_ReadFileCustom_HimeKao(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 extern BOOL Hook_ReadFileCustom_KahouPic(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 
 BOOL WINAPI Hook_ReadFile(
@@ -362,12 +385,17 @@ BOOL WINAPI Hook_ReadFile(
         OutputDebugStream("読み込むバイト数%d", nNumberOfBytesToRead);
         Hook_ReadFileCustom_BushouKao(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
     }
+    else if (hFileHIMEDATA == hFile) {
+        OutputDebugStream("読み込むバイト数%d", nNumberOfBytesToRead);
+        Hook_ReadFileCustom_HimeKao(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+    }
     else if (hFileITEMDATA == hFile) {
         OutputDebugStream("読み込むバイト数%d", nNumberOfBytesToRead);
         Hook_ReadFileCustom_KahouPic(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
     }
 
     nTargetKaoID = -1;
+    nTargetHimeKaoID = -1;
     nTargetKahouGazouID = -1;
 
     return nResult;

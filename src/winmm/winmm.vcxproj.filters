@@ -22,6 +22,9 @@
     <Filter Include="烈風伝Mod">
       <UniqueIdentifier>{76872a86-5724-45b0-93cf-b443ed4dccd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ファイル">
+      <UniqueIdentifier>{df5cd707-6f60-4d11-9417-e1e4e981b6df}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dllmain.h">
@@ -45,6 +48,9 @@
     <ClInclude Include="loadmod.h">
       <Filter>烈風伝Mod</Filter>
     </ClInclude>
+    <ClInclude Include="file_attribute.h">
+      <Filter>ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -64,6 +70,9 @@
     </ClCompile>
     <ClCompile Include="process.cpp">
       <Filter>プロセス</Filter>
+    </ClCompile>
+    <ClCompile Include="file_attribute.cpp">
+      <Filter>ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

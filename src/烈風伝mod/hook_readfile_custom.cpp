@@ -8,24 +8,21 @@
 #include "hook_readfile_custom.h"
 #include "output_debug_stream.h"
 #include "javascript_mod.h"
+#include "file_attribute.h"
 
 
 // 顔の画像は幅が96, 高さが120。マジックナンバーになってしまうが、今後変更になったりは永久にしないため、そのまま埋め込む。(そっちの方が定数名使うよりわかりやすい)
 
-struct KAO_PICLINE {
+struct BUSHOUKAO_PICLINE {
     BYTE at[KAO_PIC_WIDTH];
 };
-struct KAO_PICTURE {
-    KAO_PICLINE line[KAO_PIC_HIGHT];
+struct BUSHOUKAO_PICTURE {
+    BUSHOUKAO_PICLINE line[KAO_PIC_HIGHT];
 };
 
-KAO_PICTURE picKaoFileOrigin = { 0 };
-KAO_PICTURE picKaoFlipSidePp = { 0 };
+BUSHOUKAO_PICTURE picBushouKaoFileOrigin = { 0 };
+BUSHOUKAO_PICTURE picBushouKaoFlipSidePp = { 0 };
 
-bool fileExists(const std::string& filename) {
-    std::ifstream file(filename);
-    return file.good(); // ファイルが存在すればtrueを返す
-}
 extern int nTargetKaoID;
 BOOL Hook_ReadFileCustom_BushouKao(
     HANDLE hFile, // ファイルのハンドル
@@ -45,7 +42,7 @@ BOOL Hook_ReadFileCustom_BushouKao(
     }
 
     std::string filename = filenameBuf;
-    if (!fileExists(filename)) {
+    if (!isFileExists(filename)) {
         return FALSE;
     }
 
@@ -68,19 +65,91 @@ BOOL Hook_ReadFileCustom_BushouKao(
 
     // 元の画像をコピー
     if (nNumberOfBytesToRead == buffer.size()) {
-        memcpy(&picKaoFileOrigin, buffer.data(), buffer.size());
+        memcpy(&picBushouKaoFileOrigin, buffer.data(), buffer.size());
 
         // 上下反転したものを picfileOrigin→picflipSidePp にコピー
         for (int i = 0; i < KAO_PIC_HIGHT; i++) {
-            memcpy(&(picKaoFlipSidePp.line[KAO_PIC_HIGHT -1 - i]), &(picKaoFileOrigin.line[i]), KAO_PIC_WIDTH);
+            memcpy(&(picBushouKaoFlipSidePp.line[KAO_PIC_HIGHT -1 - i]), &(picBushouKaoFileOrigin.line[i]), KAO_PIC_WIDTH);
         }
 
-        memcpy(lpBuffer, &picKaoFlipSidePp, (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
+        memcpy(lpBuffer, &picBushouKaoFlipSidePp, (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
     }
 
 
     return TRUE;
 }
+
+
+
+
+
+struct HIMEKAO_PICLINE {
+    BYTE at[KAO_PIC_WIDTH];
+};
+struct HIMEKAO_PICTURE {
+    HIMEKAO_PICLINE line[KAO_PIC_HIGHT];
+};
+
+HIMEKAO_PICTURE picHimeKaoFileOrigin = { 0 };
+HIMEKAO_PICTURE picHimeKaoFlipSidePp = { 0 };
+
+extern int nTargetHimeKaoID;
+BOOL Hook_ReadFileCustom_HimeKao(
+    HANDLE hFile, // ファイルのハンドル
+    LPVOID lpBuffer, // データの格納先
+    DWORD nNumberOfBytesToRead, // 読み込むバイト数
+    LPDWORD lpNumberOfBytesRead, // 実際に読み込んだバイト数
+    LPOVERLAPPED lpOverlapped // オーバーラップ構造体のポインタ
+) {
+
+    char filenameBuf[512] = "";
+    std::string jsOverridePath = callJSModRequestHimeKaoID(nTargetHimeKaoID);
+    if (jsOverridePath != "") {
+        strcpy_s(filenameBuf, jsOverridePath.c_str());
+    }
+    else {
+        sprintf_s(filenameBuf, "OVERRIDE\\HIMEDATA\\%04d.bmp", nTargetHimeKaoID);
+    }
+
+    std::string filename = filenameBuf;
+    if (!isFileExists(filename)) {
+        return FALSE;
+    }
+
+    std::ifstream file(filename, std::ios::binary);
+
+    if (!file) {
+        OutputDebugStream("ファイル" + filename + "を開くことができませんでした。\n");
+        return FALSE;
+    }
+
+    file.seekg(-(KAO_PIC_WIDTH * KAO_PIC_HIGHT), std::ios::end);
+
+    std::vector<char> buffer(KAO_PIC_WIDTH * KAO_PIC_HIGHT);
+    file.read(buffer.data(), buffer.size());
+
+    if (file.fail()) {
+        OutputDebugStream("ファイル" + filename + "の読み込みに失敗しました。\n");
+        return FALSE;
+    }
+
+    // 元の画像をコピー
+    if (nNumberOfBytesToRead == buffer.size()) {
+        memcpy(&picHimeKaoFileOrigin, buffer.data(), buffer.size());
+
+        // 上下反転したものを picfileOrigin→picflipSidePp にコピー
+        for (int i = 0; i < KAO_PIC_HIGHT; i++) {
+            memcpy(&(picHimeKaoFlipSidePp.line[KAO_PIC_HIGHT - 1 - i]), &(picHimeKaoFileOrigin.line[i]), KAO_PIC_WIDTH);
+        }
+
+        memcpy(lpBuffer, &picHimeKaoFlipSidePp, (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
+    }
+
+
+    return TRUE;
+}
+
+
 
 
 
@@ -116,7 +185,7 @@ BOOL Hook_ReadFileCustom_KahouPic(
     }
 
     std::string filename = filenameBuf;
-    if (!fileExists(filename)) {
+    if (!isFileExists(filename)) {
         return FALSE;
     }
 

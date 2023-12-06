@@ -1,4 +1,5 @@
 ﻿  export_func.cpp
+  file_attribute.cpp
   game_font.cpp
   game_menu.cpp
   game_process.cpp
