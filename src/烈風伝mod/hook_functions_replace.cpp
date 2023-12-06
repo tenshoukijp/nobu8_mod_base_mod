@@ -310,7 +310,7 @@ DWORD WINAPI Hook_SetFilePointer(
         const int pic_data_size = (KAO_PIC_WIDTH * KAO_PIC_HIGHT) * 1677; // 1677個の顔画像が入っている
         const int file_org_size = 19345876; // KAODATA.NB8のファイルサイズ
         const int header_size = file_org_size - pic_data_size;
-        nTargetKaoID = (lDistanceToMove - header_size) / (96 * 120);
+        nTargetKaoID = (lDistanceToMove - header_size) / (KAO_PIC_WIDTH * KAO_PIC_HIGHT);
         OutputDebugStream("顔SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
         OutputDebugStream("顔ID:%d\n", nTargetKaoID);
     }
@@ -318,7 +318,7 @@ DWORD WINAPI Hook_SetFilePointer(
         const int pic_data_size = (KAHOU_PIC_WIDTH * KAHOU_PIC_HIGHT) * 51; // 51個の家宝画像が入っている
         const int file_org_size = 327220; // ITEMCG.NB8のファイルサイズ
         const int header_size = file_org_size - pic_data_size;
-        nTargetKahouGazouID = (lDistanceToMove - header_size) / (80 * 80);
+        nTargetKahouGazouID = (lDistanceToMove - header_size) / (KAHOU_PIC_WIDTH * KAHOU_PIC_HIGHT);
         OutputDebugStream("家宝SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
         OutputDebugStream("顔ID:%d\n", nTargetKahouGazouID);
     }
@@ -392,13 +392,7 @@ bool isHookReleaseDC = false;
 bool isHookCreateFileA = false;
 bool isHookSetFilePointer = false;
 bool isHookReadFile = false;
-bool isHookEnableMenuItem = false;
-bool isHookBitBlt = false;
-bool isHookCreateDIBitmap = false;
-bool isHookCreateCompatibleDC = false;
-bool isHookGetDIBits = false;
 bool isHookIsDebuggerPresent = false;
-bool isHookUnknown1 = false;
 
 void hookFunctionsReplace() {
 
@@ -434,21 +428,6 @@ void hookFunctionsReplace() {
         isHookReleaseDC = true;
         pfnOrig = ::GetProcAddress(GetModuleHandleA("user32.dll"), "ReleaseDC");
         ReplaceIATEntryInAllMods("user32.dll", pfnOrig, (PROC)Hook_ReleaseDC);
-    }
-    if (!isHookCreateFileA) {
-		isHookCreateFileA = true;
-		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "CreateFileA");
-		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_CreateFileA);
-	}
-    if (!isHookSetFilePointer) {
-        isHookSetFilePointer = true;
-        pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "SetFilePointer");
-        ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_SetFilePointer);
-    }
-    if (!isHookReadFile) {
-        isHookReadFile = true;
-        pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFile");
-        ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_ReadFile);
     }
     if (!isHookIsDebuggerPresent) {
         isHookIsDebuggerPresent = true;

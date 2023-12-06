@@ -41,7 +41,7 @@ BOOL Hook_ReadFileCustom_BushouKao(
         strcpy_s(filenameBuf, jsOverridePath.c_str());
     }
     else {
-        sprintf_s(filenameBuf, "KAODATA\\%04d.bmp", nTargetKaoID);
+        sprintf_s(filenameBuf, "OVERRIDE\\KAODATA\\%04d.bmp", nTargetKaoID);
     }
 
     std::string filename = filenameBuf;
@@ -112,7 +112,7 @@ BOOL Hook_ReadFileCustom_KahouPic(
         strcpy_s(filenameBuf, jsOverridePath.c_str());
     }
     else {
-        sprintf_s(filenameBuf, "ITEMCG\\%03d.bmp", nTargetKahouGazouID);
+        sprintf_s(filenameBuf, "OVERRIDE\\ITEMCG\\%03d.bmp", nTargetKahouGazouID);
     }
 
     std::string filename = filenameBuf;

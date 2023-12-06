@@ -113,7 +113,6 @@ namespace ゲーム
         private static 烈風伝 rpdobj;
         private static JSConsole console;
 
-
         private static void OutputDebugStream(string message)
         {
             System.Diagnostics.Trace.WriteLine(message);
@@ -341,10 +340,6 @@ namespace ゲーム
                     engine.AddHostType("console", typeof(JSConsole));
                     // engine.Execute(new DocumentInfo { Category = ModuleCategory.CommonJS }, "globalThis.require = require");
                     engine.Execute(new DocumentInfo { Category = ModuleCategory.CommonJS }, "globalThis.require = require");
-                    String expression = @"
-                        デバッグ出力 = 烈風伝._debuginfo;
-                    ";
-                    engine.Execute(expression);
                 }
                 catch (Exception e)
                 {
