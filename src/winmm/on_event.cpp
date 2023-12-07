@@ -7,8 +7,6 @@
 
 void onInitialize() {
 
-    setDllFuncAddress();
-
     loadNB8Mod();
 
     Mod_onInitialize();
