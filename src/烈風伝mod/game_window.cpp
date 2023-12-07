@@ -8,6 +8,7 @@ HWND hNB8Wnd = NULL;
 
 HWND* referenceOfNB8Wnd = NULL;
 
+extern void hookFunctionsDirect();
 
 BOOL doneCreateWindow = FALSE;
 void onCreateWindow(HWND hWnd) {
@@ -19,6 +20,8 @@ void onCreateWindow(HWND hWnd) {
 
 		// 呼び出し元(WinMM.dll)に、「今回の起動ではちゃんとウィンドウが生成されたよ」と伝える。よってゲーム本体が起動された。
 		*referenceOfNB8Wnd = hWnd;
+
+		hookFunctionsDirect();
 
 		// メニューがころころ変わるので、メニューの変更を検知するため。最初にこれを代入。主にHook_SetMenuで、使われている。
 		hNB8MenuCheckChange = GetMenu(hNB8Wnd);

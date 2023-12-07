@@ -55,6 +55,9 @@
     <Filter Include="ムービー">
       <UniqueIdentifier>{08c190f4-d9ae-4886-943a-861d303588b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="フック関数ダイレクト">
+      <UniqueIdentifier>{1aa95ca2-4f93-4881-a727-6beaed02f00b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -143,7 +146,13 @@
     <ClCompile Include="file_attribute.cpp">
       <Filter>ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="hook_movie_filename.cpp">
+    <ClCompile Include="hook_movie_opening_filename.cpp">
+      <Filter>ムービー</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_functions_direct.cpp">
+      <Filter>フック関数ダイレクト</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_movie_ending_filename.cpp">
       <Filter>ムービー</Filter>
     </ClCompile>
   </ItemGroup>
