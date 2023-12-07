@@ -8,11 +8,13 @@
   game_window.cpp
   hook_defwindowproca_custom.cpp
   hook_functions_replace.cpp
+  hook_movie_filename.cpp
   hook_readfile_custom.cpp
   hook_setmenu_custom.cpp
   javascript_mod.cpp
   mng_文字列変換.cpp
   output_debug_stream.cpp
+C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
   .NETFramework,Version=v4.8.AssemblyAttributes.cpp
      ライブラリ C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.lib とオブジェクト C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.exp を作成中
 LINK : warning LNK4232: 名前 烈風伝.mod に ASCII 文字以外の文字が含まれています。932 以外の ANSI コードページを使用すると、DLL をシステムに読み込めない可能性があります

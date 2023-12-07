@@ -10,6 +10,7 @@
 using namespace std;
 
 HINSTANCE hOriginalDll;
+extern HWND hNB8Wnd;
 
 
 FARPROC p_NONAME1;
@@ -400,6 +401,11 @@ extern "C" {
     
     char bufOverrideFileName[1024] = "";
     HMMIO WINAPI d_mmioOpenA( LPSTR pszFileName, LPMMIOINFO pmmioinfo, DWORD fdwOpen ) {
+        // 烈風伝でないなら、通常のWINMMの機能通り
+        if (!hNB8Wnd) {
+			return p_mmioOpenA(pszFileName, pmmioinfo, fdwOpen);
+		}
+
         // 全体をクリア
         ZeroMemory(bufOverrideFileName, _countof(bufOverrideFileName));
         // JS経由で音声ファイル系のファイル名変更指定があるかもしれない。
