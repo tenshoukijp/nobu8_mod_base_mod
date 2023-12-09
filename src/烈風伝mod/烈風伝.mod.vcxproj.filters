@@ -70,6 +70,9 @@
     <Filter Include="地域">
       <UniqueIdentifier>{6aff4e79-c7ef-4364-999d-b8cef0b3e143}</UniqueIdentifier>
     </Filter>
+    <Filter Include="鬼車">
+      <UniqueIdentifier>{a7a3bf80-f2a6-425b-bd7a-04530923cd33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -125,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="hook_functions_replace_comment.h">
       <Filter>フック関数置き換え系</Filter>
+    </ClInclude>
+    <ClInclude Include="onigwrap.h">
+      <Filter>鬼車</Filter>
+    </ClInclude>
+    <ClInclude Include="..\oniguruma\oniguruma.h">
+      <Filter>鬼車</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -182,6 +191,9 @@
     <ClCompile Include="hook_movie_ending_filename.cpp">
       <Filter>ムービー</Filter>
     </ClCompile>
+    <ClCompile Include="onigwrap.cpp">
+      <Filter>鬼車</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="dllmain.def">
@@ -192,5 +204,10 @@
     <ResourceCompile Include="Resource.rc">
       <Filter>リソース ファイル</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="oniguruma.lib">
+      <Filter>鬼車</Filter>
+    </Library>
   </ItemGroup>
 </Project>

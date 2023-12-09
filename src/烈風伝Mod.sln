@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "烈風伝.mod", "烈風伝m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JavaScript.mod", "JavaScript.mod\JavaScript.mod.csproj", "{9484C24F-1192-41AD-8076-F418DDCF3540}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oniguruma", "oniguruma\oniguruma.vcxproj", "{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{9484C24F-1192-41AD-8076-F418DDCF3540}.Release|x64.Build.0 = Release|Any CPU
 		{9484C24F-1192-41AD-8076-F418DDCF3540}.Release|x86.ActiveCfg = Release|Any CPU
 		{9484C24F-1192-41AD-8076-F418DDCF3540}.Release|x86.Build.0 = Release|Any CPU
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|Any CPU.Build.0 = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|x64.ActiveCfg = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|x64.Build.0 = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|x86.ActiveCfg = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Debug|x86.Build.0 = Debug|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|Any CPU.ActiveCfg = Release|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|Any CPU.Build.0 = Release|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|x64.ActiveCfg = Release|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|x64.Build.0 = Release|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|x86.ActiveCfg = Release|Win32
+		{4F8401DE-7D7A-4F49-B2D3-6FFBA420AC35}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
