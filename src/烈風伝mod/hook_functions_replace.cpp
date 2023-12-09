@@ -402,6 +402,32 @@ BOOL WINAPI Hook_ReadFile(
 }
 
 
+//---------------------------lstrcpyA
+
+using PFNLSTRCPYA = LPSTR(WINAPI*)(LPSTR, LPCSTR);
+
+PROC pfnOriglstrcpyA = GetProcAddress(GetModuleHandleA("kernel32.dll"), "lstrcpyA");
+
+BOOL isDoinglstrcpyA = FALSE;
+LPSTR WINAPI Hook_lstrcpyA(
+    LPSTR lpString1, // コピー先のバッファへのポインタ
+    LPCSTR lpString2  // コピー元の文字列へのポインタ
+) {
+    if (isDoinglstrcpyA) {
+		return ((PFNLSTRCPYA)pfnOriglstrcpyA)(lpString1, lpString2);
+	}
+    isDoinglstrcpyA = TRUE;
+    OutputDebugStream("lpString1:%x", lpString1);
+    OutputDebugStream("lpString2:%s", lpString2);
+    isDoinglstrcpyA = FALSE;
+
+	// 元のもの
+	LPSTR nResult = ((PFNLSTRCPYA)pfnOriglstrcpyA)(lpString1, lpString2);
+
+	return nResult;
+}
+
+
 
 //---------------------------IsDebuggerPresent
 
@@ -432,6 +458,7 @@ bool isHookReleaseDC = false;
 bool isHookCreateFileA = false;
 bool isHookSetFilePointer = false;
 bool isHookReadFile = false;
+bool isHooklstrcpyA = false;
 bool isHookIsDebuggerPresent = false;
 
 void hookFunctionsReplace() {
@@ -483,6 +510,11 @@ void hookFunctionsReplace() {
 		isHookReadFile = true;
 		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFile");
 		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_ReadFile);
+	}
+    if (!isHooklstrcpyA) {
+		isHooklstrcpyA = true;
+		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "lstrcpyA");
+		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_lstrcpyA);
 	}
     if (!isHookIsDebuggerPresent) {
         isHookIsDebuggerPresent = true;

@@ -58,6 +58,18 @@
     <Filter Include="フック関数ダイレクト">
       <UniqueIdentifier>{1aa95ca2-4f93-4881-a727-6beaed02f00b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="官位">
+      <UniqueIdentifier>{3e784f53-dc02-4705-980f-08756bc11783}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="野戦陣形">
+      <UniqueIdentifier>{34d02c42-72f0-4d08-af71-06224478a4db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="方位">
+      <UniqueIdentifier>{ab794618-9494-4a3e-8a05-ad9d7bd01e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="地域">
+      <UniqueIdentifier>{6aff4e79-c7ef-4364-999d-b8cef0b3e143}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -98,6 +110,21 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="data_kanni_struct_comment.h">
+      <Filter>官位</Filter>
+    </ClInclude>
+    <ClInclude Include="data_yasen_struct_comment.h">
+      <Filter>野戦陣形</Filter>
+    </ClInclude>
+    <ClInclude Include="data_houi_struct_comment.h">
+      <Filter>方位</Filter>
+    </ClInclude>
+    <ClInclude Include="data_chiiki_struct_comment.h">
+      <Filter>地域</Filter>
+    </ClInclude>
+    <ClInclude Include="hook_functions_replace_comment.h">
+      <Filter>フック関数置き換え系</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

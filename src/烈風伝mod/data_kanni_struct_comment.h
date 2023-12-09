@@ -1,0 +1,29 @@
+#pragma once
+
+/*
+0083C55E   A3 70919000      MOV DWORD PTR DS:[909170],EAX
+0083C563   C705 74919000 04>MOV DWORD PTR DS:[909174],Nobunaga.00853A04                     ; ASCII "ê≥î™à â∫"
+0083C56D   C705 78919000 F8>MOV DWORD PTR DS:[909178],Nobunaga.008539F8                     ; ASCII "ê≥î™à è„"
+0083C577   C705 7C919000 EC>MOV DWORD PTR DS:[90917C],Nobunaga.008539EC                     ; ASCII "è]éµà â∫"
+0083C581   C705 80919000 E0>MOV DWORD PTR DS:[909180],Nobunaga.008539E0                     ; ASCII "è]éµà è„"
+0083C58B   C705 84919000 D4>MOV DWORD PTR DS:[909184],Nobunaga.008539D4                     ; ASCII "ê≥éµà â∫"
+0083C595   C705 88919000 C8>MOV DWORD PTR DS:[909188],Nobunaga.008539C8                     ; ASCII "ê≥éµà è„"
+0083C59F   C705 8C919000 BC>MOV DWORD PTR DS:[90918C],Nobunaga.008539BC                     ; ASCII "è]òZà â∫"
+0083C5A9   C705 90919000 B0>MOV DWORD PTR DS:[909190],Nobunaga.008539B0                     ; ASCII "è]òZà è„"
+0083C5B3   C705 94919000 A4>MOV DWORD PTR DS:[909194],Nobunaga.008539A4                     ; ASCII "ê≥òZà â∫"
+0083C5BD   C705 98919000 98>MOV DWORD PTR DS:[909198],Nobunaga.00853998                     ; ASCII "ê≥òZà è„"
+0083C5C7   C705 9C919000 8C>MOV DWORD PTR DS:[90919C],Nobunaga.0085398C                     ; ASCII "è]å‹à â∫"
+0083C5D1   C705 A0919000 80>MOV DWORD PTR DS:[9091A0],Nobunaga.00853980                     ; ASCII "è]å‹à è„"
+0083C5DB   C705 A4919000 74>MOV DWORD PTR DS:[9091A4],Nobunaga.00853974                     ; ASCII "ê≥å‹à â∫"
+0083C5E5   C705 A8919000 68>MOV DWORD PTR DS:[9091A8],Nobunaga.00853968                     ; ASCII "ê≥å‹à è„"
+0083C5EF   C705 AC919000 5C>MOV DWORD PTR DS:[9091AC],Nobunaga.0085395C                     ; ASCII "è]élà â∫"
+0083C5F9   C705 B0919000 50>MOV DWORD PTR DS:[9091B0],Nobunaga.00853950                     ; ASCII "ê≥élà â∫"
+0083C603   C705 B4919000 44>MOV DWORD PTR DS:[9091B4],Nobunaga.00853944                     ; ASCII "ê≥élà è„"
+0083C60D   C705 B8919000 3C>MOV DWORD PTR DS:[9091B8],Nobunaga.0085393C                     ; ASCII "è]éOà "
+0083C617   C705 BC919000 34>MOV DWORD PTR DS:[9091BC],Nobunaga.00853934                     ; ASCII "ê≥éOà "
+0083C621   C705 C0919000 2C>MOV DWORD PTR DS:[9091C0],Nobunaga.0085392C                     ; ASCII "è]ìÒà "
+0083C62B   C705 C4919000 24>MOV DWORD PTR DS:[9091C4],Nobunaga.00853924                     ; ASCII "ê≥ìÒà "
+0083C635   C705 C8919000 1C>MOV DWORD PTR DS:[9091C8],Nobunaga.0085391C                     ; ASCII "è]àÍà "
+0083C63F   C705 CC919000 14>MOV DWORD PTR DS:[9091CC],Nobunaga.00853914                     ; ASCII "ê≥àÍà "
+
+*/

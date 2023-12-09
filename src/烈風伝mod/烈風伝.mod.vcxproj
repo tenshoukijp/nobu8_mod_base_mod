@@ -90,6 +90,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="data_chiiki_struct_comment.h" />
+    <ClInclude Include="data_houi_struct_comment.h" />
+    <ClInclude Include="data_kanni_struct_comment.h" />
+    <ClInclude Include="data_yasen_struct_comment.h" />
     <ClInclude Include="file_attribute.h" />
     <ClInclude Include="game_font.h" />
     <ClInclude Include="game_menu.h" />
@@ -98,6 +102,7 @@
     <ClInclude Include="game_test.h" />
     <ClInclude Include="game_window.h" />
     <ClInclude Include="hook_functions_replace.h" />
+    <ClInclude Include="hook_functions_replace_comment.h" />
     <ClInclude Include="hook_readfile_custom.h" />
     <ClInclude Include="javascript_mod.h" />
     <ClInclude Include="mng_文字列変換.h" />

@@ -14,8 +14,8 @@
   hook_readfile_custom.cpp
   hook_setmenu_custom.cpp
   javascript_mod.cpp
-C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_ending_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
 C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_opening_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_ending_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
   mng_文字列変換.cpp
   output_debug_stream.cpp
   .NETFramework,Version=v4.8.AssemblyAttributes.cpp
