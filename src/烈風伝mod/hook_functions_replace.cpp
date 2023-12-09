@@ -121,15 +121,11 @@ LRESULT WINAPI Hook_DefWindowProcA(
 }
 
 
-/**/
 //---------------------------TextOutA
 
-// フックする関数のプロトタイプを定義
 using PFNTEXTOUTA = BOOL(WINAPI *)(HDC, int, int, LPCTSTR, int);
 
 PROC pfnOrigTextOutA = GetProcAddress(GetModuleHandleA("gdi32.dll"), "TextOutA");
-
-extern BOOL isOverrideTextOut;
 
 BOOL WINAPI Hook_TextOutA(
     HDC hdc,           // デバイスコンテキストのハンドル
@@ -138,11 +134,41 @@ BOOL WINAPI Hook_TextOutA(
     LPCTSTR lpString,  // 文字列
     int cbString       // 文字数
 ) {
+
     // 先にカスタムの方を実行。
     BOOL nResult = ((PFNTEXTOUTA)pfnOrigTextOutA)(hdc, nXStart, nYStart, lpString, cbString);
 
     return nResult;
 }
+
+
+
+//---------------------------DrawTextA
+
+using PFNDRAWTEXTA = int(WINAPI *)(HDC, LPCTSTR, int, LPRECT, UINT);
+
+PROC pfnOrigDrawTextA = GetProcAddress(GetModuleHandleA("user32.dll"), "DrawTextA");
+
+int WINAPI Hook_DrawTextA(
+    HDC hdc,          // デバイスコンテキストのハンドル
+    LPCTSTR lpchText, // 描画する文字列
+    int cchText,      // 文字列の長さ
+    LPRECT lprc,      // 文字列を描画する長方形の座標
+    UINT format       // フォーマットオプション
+) {
+
+    OutputDebugStream("DrawTextA%s\n", lpchText);
+    OutputDebugStream("%x\n", lpchText);
+
+	// 先にカスタムの方を実行。
+    int nResult = ((PFNDRAWTEXTA)pfnOrigDrawTextA)(hdc, lpchText, cchText, lprc, format);
+
+	return nResult;
+}
+
+
+
+
 
 
 //---------------------------CreateFontA
@@ -402,31 +428,6 @@ BOOL WINAPI Hook_ReadFile(
 }
 
 
-//---------------------------lstrcpyA
-
-using PFNLSTRCPYA = LPSTR(WINAPI*)(LPSTR, LPCSTR);
-
-PROC pfnOriglstrcpyA = GetProcAddress(GetModuleHandleA("kernel32.dll"), "lstrcpyA");
-
-BOOL isDoinglstrcpyA = FALSE;
-LPSTR WINAPI Hook_lstrcpyA(
-    LPSTR lpString1, // コピー先のバッファへのポインタ
-    LPCSTR lpString2  // コピー元の文字列へのポインタ
-) {
-    if (isDoinglstrcpyA) {
-		return ((PFNLSTRCPYA)pfnOriglstrcpyA)(lpString1, lpString2);
-	}
-    isDoinglstrcpyA = TRUE;
-    OutputDebugStream("lpString1:%x", lpString1);
-    OutputDebugStream("lpString2:%s", lpString2);
-    isDoinglstrcpyA = FALSE;
-
-	// 元のもの
-	LPSTR nResult = ((PFNLSTRCPYA)pfnOriglstrcpyA)(lpString1, lpString2);
-
-	return nResult;
-}
-
 
 
 //---------------------------IsDebuggerPresent
@@ -451,6 +452,7 @@ BOOL WINAPI Hook_IsDebuggerPresent() {
  *----------------------------------------------------------------*/
 bool isHookDefWindowProcA = false;
 bool isHookTextOutA = false;
+bool isHookDrawTextA = false;
 bool isHookCreateFontA = false;
 bool isHookCreateFontIndirectA = false;
 bool isHookSetMenu = false;
@@ -458,7 +460,6 @@ bool isHookReleaseDC = false;
 bool isHookCreateFileA = false;
 bool isHookSetFilePointer = false;
 bool isHookReadFile = false;
-bool isHooklstrcpyA = false;
 bool isHookIsDebuggerPresent = false;
 
 void hookFunctionsReplace() {
@@ -474,6 +475,11 @@ void hookFunctionsReplace() {
         pfnOrig = ::GetProcAddress(GetModuleHandleA("gdi32.dll"), "TextOutA");
         ReplaceIATEntryInAllMods("gdi32.dll", pfnOrig, (PROC)Hook_TextOutA);
     }
+    if (!isHookDrawTextA) {
+		isHookDrawTextA = true;
+		pfnOrig = ::GetProcAddress(GetModuleHandleA("user32.dll"), "DrawTextA");
+		ReplaceIATEntryInAllMods("user32.dll", pfnOrig, (PROC)Hook_DrawTextA);
+	}
     if (!isHookCreateFontA) {
 		isHookCreateFontA = true;
         OutputDebugStream("CreateFontAをフックします\n");
@@ -510,11 +516,6 @@ void hookFunctionsReplace() {
 		isHookReadFile = true;
 		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFile");
 		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_ReadFile);
-	}
-    if (!isHooklstrcpyA) {
-		isHooklstrcpyA = true;
-		pfnOrig = ::GetProcAddress(GetModuleHandleA("kernel32.dll"), "lstrcpyA");
-		ReplaceIATEntryInAllMods("kernel32.dll", pfnOrig, (PROC)Hook_lstrcpyA);
 	}
     if (!isHookIsDebuggerPresent) {
         isHookIsDebuggerPresent = true;
