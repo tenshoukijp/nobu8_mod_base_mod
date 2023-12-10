@@ -144,6 +144,33 @@ BOOL WINAPI Hook_TextOutA(
 
 
 //---------------------------DrawTextA
+/*
+00425B20  /$ 55             PUSH EBP
+00425B21  |. 8BEC           MOV EBP,ESP
+00425B23  |. 83EC 44        SUB ESP,44
+00425B26  |. 53             PUSH EBX
+00425B27  |. 56             PUSH ESI
+00425B28  |. 57             PUSH EDI
+00425B29  |. 894D FC        MOV DWORD PTR SS:[EBP-4],ECX
+00425B2C  |. 8B45 14        MOV EAX,DWORD PTR SS:[EBP+14]
+00425B2F  |. 50             PUSH EAX                                 ; /Flags
+00425B30  |. 8B4D 10        MOV ECX,DWORD PTR SS:[EBP+10]            ; |
+00425B33  |. 51             PUSH ECX                                 ; |pRect
+00425B34  |. 8B55 0C        MOV EDX,DWORD PTR SS:[EBP+C]             ; |
+00425B37  |. 52             PUSH EDX                                 ; |Count
+00425B38  |. 8B45 08        MOV EAX,DWORD PTR SS:[EBP+8]             ; |
+00425B3B  |. 50             PUSH EAX                                 ; |Text
+00425B3C  |. 8B4D FC        MOV ECX,DWORD PTR SS:[EBP-4]             ; |
+00425B3F  |. 8B51 04        MOV EDX,DWORD PTR DS:[ECX+4]             ; |
+00425B42  |. 52             PUSH EDX                                 ; |hDC
+00425B43  |. FF15 64088400  CALL DWORD PTR DS:[<&USER32.DrawTextA>]  ; \DrawTextA
+00425B49  |. 5F             POP EDI
+00425B4A  |. 5E             POP ESI
+00425B4B  |. 5B             POP EBX
+00425B4C  |. 8BE5           MOV ESP,EBP
+00425B4E  |. 5D             POP EBP
+00425B4F  \. C2 1000        RETN 10
+*/
 
 using PFNDRAWTEXTA = int(WINAPI *)(HDC, LPCTSTR, int, LPRECT, UINT);
 
@@ -159,6 +186,11 @@ int WINAPI Hook_DrawTextA(
 
     OutputDebugStream("DrawTextA%s\n", lpchText);
     OutputDebugStream("%x\n", lpchText);
+    /*
+    if (std::string(lpchText).find("強国に従う") != string::npos) {
+        return ((PFNDRAWTEXTA)pfnOrigDrawTextA)(hdc, "これあれなんか？\xA置き換えたんか？", strlen("これあれなんか？\xA置き換えたんか？"), lprc, format);
+    }
+    */
 
 	// 先にカスタムの方を実行。
     int nResult = ((PFNDRAWTEXTA)pfnOrigDrawTextA)(hdc, lpchText, cchText, lprc, format);
