@@ -152,6 +152,7 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="data_game_text_resource.cpp" />
     <ClCompile Include="export_func.cpp" />
     <ClCompile Include="file_attribute.cpp" />
     <ClCompile Include="game_font.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="hook_defwindowproca_custom.cpp" />
     <ClCompile Include="hook_functions_direct.cpp" />
     <ClCompile Include="hook_functions_replace.cpp" />
+    <ClCompile Include="hook_kanni_label_name.cpp" />
     <ClCompile Include="hook_movie_ending_filename.cpp" />
     <ClCompile Include="hook_movie_opening_filename.cpp" />
     <ClCompile Include="hook_readfile_custom.cpp" />
@@ -185,6 +187,11 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="oniguruma.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

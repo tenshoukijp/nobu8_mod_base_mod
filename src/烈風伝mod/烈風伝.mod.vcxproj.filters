@@ -73,6 +73,9 @@
     <Filter Include="鬼車">
       <UniqueIdentifier>{a7a3bf80-f2a6-425b-bd7a-04530923cd33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ゲームデータ - 単語">
+      <UniqueIdentifier>{590dc06c-05fb-4888-958a-c6e3aed52c80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_process.h">
@@ -193,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="onigwrap.cpp">
       <Filter>鬼車</Filter>
+    </ClCompile>
+    <ClCompile Include="data_game_text_resource.cpp">
+      <Filter>ゲームデータ - 単語</Filter>
+    </ClCompile>
+    <ClCompile Include="hook_kanni_label_name.cpp">
+      <Filter>官位</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
