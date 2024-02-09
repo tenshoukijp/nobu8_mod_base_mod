@@ -211,7 +211,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("フォント名:" + ret.フォント名.ToString());
                 return ret.フォント名;
             }
             catch (Exception e)
@@ -236,7 +235,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("ＢＧＭファイル名:" + ret.ファイル名);
                 return ret.ファイル名;
             }
             catch (Exception e)
@@ -261,7 +259,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("効果音ファイル名:" + ret.ファイル名);
                 return ret.ファイル名;
             }
             catch (Exception e)
@@ -276,7 +273,7 @@ namespace ゲーム
             try
             {
                 dynamic jsObject = new ExpandoObject();
-                jsObject.画像ID = iKaoID;
+                jsObject.画像番号 = iKaoID;
                 dynamic ret = engine.Script.onRequest顔画像(jsObject);
                 if (ret is Undefined)
                 {
@@ -286,7 +283,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("顔画像:" + ret.ファイル名);
                 return ret.ファイル名;
             }
             catch (Exception e)
@@ -301,7 +297,7 @@ namespace ゲーム
             try
             {
                 dynamic jsObject = new ExpandoObject();
-                jsObject.画像ID = iKaoID;
+                jsObject.画像番号 = iKaoID;
                 dynamic ret = engine.Script.onRequest家宝画像(jsObject);
                 if (ret is Undefined)
                 {
@@ -311,7 +307,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("家宝画像:" + ret.ファイル名);
                 return ret.ファイル名;
             }
             catch (Exception e)
@@ -336,7 +331,6 @@ namespace ゲーム
                 {
                     return "";
                 }
-                OutputDebugStream("ファイル名:" + ret.ファイル名);
                 return ret.ファイル名;
             }
             catch (Exception e)
