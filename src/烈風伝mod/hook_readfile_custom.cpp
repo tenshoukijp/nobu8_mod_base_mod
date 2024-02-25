@@ -20,8 +20,6 @@ struct BUSHOUKAO_PICTURE {
     BUSHOUKAO_PICLINE line[KAO_PIC_HIGHT];
 };
 
-BUSHOUKAO_PICTURE picBushouKaoFileOrigin = { 0 };
-BUSHOUKAO_PICTURE picBushouKaoFlipSidePp = { 0 };
 
 extern int nTargetKaoID;
 BOOL Hook_ReadFileCustom_BushouKao(
@@ -31,6 +29,12 @@ BOOL Hook_ReadFileCustom_BushouKao(
     LPDWORD lpNumberOfBytesRead, // 実際に読み込んだバイト数
     LPOVERLAPPED lpOverlapped // オーバーラップ構造体のポインタ
 ) {
+    if (nTargetKaoID < 0) {
+		return FALSE;
+	}
+
+    BUSHOUKAO_PICTURE picBushouKaoFileOrigin = { 0 };
+    BUSHOUKAO_PICTURE picBushouKaoFlipSidePp = { 0 };
 
     char filenameBuf[512] = "";
     std::string jsOverridePath = callJSModRequestBushouKaoID(nTargetKaoID);
@@ -90,8 +94,6 @@ struct HIMEKAO_PICTURE {
     HIMEKAO_PICLINE line[KAO_PIC_HIGHT];
 };
 
-HIMEKAO_PICTURE picHimeKaoFileOrigin = { 0 };
-HIMEKAO_PICTURE picHimeKaoFlipSidePp = { 0 };
 
 extern int nTargetHimeKaoID;
 BOOL Hook_ReadFileCustom_HimeKao(
@@ -101,6 +103,12 @@ BOOL Hook_ReadFileCustom_HimeKao(
     LPDWORD lpNumberOfBytesRead, // 実際に読み込んだバイト数
     LPOVERLAPPED lpOverlapped // オーバーラップ構造体のポインタ
 ) {
+    if (nTargetHimeKaoID < 0) {
+        return FALSE;
+    }
+
+    HIMEKAO_PICTURE picHimeKaoFileOrigin = { 0 };
+    HIMEKAO_PICTURE picHimeKaoFlipSidePp = { 0 };
 
     char filenameBuf[512] = "";
     std::string jsOverridePath = callJSModRequestHimeKaoID(nTargetHimeKaoID);
