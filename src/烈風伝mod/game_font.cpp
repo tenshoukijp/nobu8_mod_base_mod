@@ -1,9 +1,5 @@
 #include <windows.h>
-#include <winuser.h>
-#include <stdio.h>
 
-#include "game_window.h"
-#include "process.h"
 #include "javascript_mod.h"
 
 using namespace System;

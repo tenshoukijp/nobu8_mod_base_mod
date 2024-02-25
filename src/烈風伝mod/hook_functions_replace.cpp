@@ -1,6 +1,4 @@
 #include <windows.h>
-#include <windowsx.h>
-#include <tchar.h>
 #include <tlhelp32.h>
 #include <dbghelp.h>
 #include <mmsystem.h>
@@ -12,10 +10,6 @@
 #include "output_debug_stream.h"
 #include "game_font.h"
 #include "game_process.h"
-#include "game_window.h"
-// #include "onigwrap.h"
-// #include "on_event.h"
-// #include "hook_textouta_custom.h"
 #include "file_attribute.h"
 #include "hook_readfile_custom.h"
 #include "javascript_mod.h"

@@ -1,6 +1,5 @@
 ﻿#include <windows.h>
-#include <winuser.h>
-#include <stdio.h>
+#include <time.h>
 
 #include "game_process.h"
 #include "game_window.h"
@@ -11,7 +10,6 @@
 // #include "hook_functions_direct.h"
 
 #include "output_debug_stream.h"
-#include <time.h>
 
 #pragma comment(lib, "user32.lib")
 
