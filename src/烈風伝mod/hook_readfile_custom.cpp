@@ -33,8 +33,8 @@ BOOL Hook_ReadFileCustom_BushouKao(
 		return FALSE;
 	}
 
-    BUSHOUKAO_PICTURE picBushouKaoFileOrigin = { 0 };
-    BUSHOUKAO_PICTURE picBushouKaoFlipSidePp = { 0 };
+    std::unique_ptr<BUSHOUKAO_PICTURE> picBushouKaoFileOrigin(new BUSHOUKAO_PICTURE);
+    std::unique_ptr<BUSHOUKAO_PICTURE> picBushouKaoFlipSidePp(new BUSHOUKAO_PICTURE);
 
     char filenameBuf[512] = "";
     std::string jsOverridePath = callJSModRequestBushouKaoID(nTargetKaoID);
@@ -69,14 +69,14 @@ BOOL Hook_ReadFileCustom_BushouKao(
 
     // 元の画像をコピー
     if (nNumberOfBytesToRead == buffer.size()) {
-        memcpy(&picBushouKaoFileOrigin, buffer.data(), buffer.size());
+        memcpy(picBushouKaoFileOrigin.get(), buffer.data(), buffer.size());
 
         // 上下反転したものを picfileOrigin→picflipSidePp にコピー
         for (int i = 0; i < KAO_PIC_HIGHT; i++) {
-            memcpy(&(picBushouKaoFlipSidePp.line[KAO_PIC_HIGHT -1 - i]), &(picBushouKaoFileOrigin.line[i]), KAO_PIC_WIDTH);
+            memcpy(&(picBushouKaoFlipSidePp->line[KAO_PIC_HIGHT -1 - i]), &(picBushouKaoFileOrigin->line[i]), KAO_PIC_WIDTH);
         }
 
-        memcpy(lpBuffer, &picBushouKaoFlipSidePp, (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
+        memcpy(lpBuffer, picBushouKaoFlipSidePp.get(), (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
     }
 
 
@@ -107,8 +107,8 @@ BOOL Hook_ReadFileCustom_HimeKao(
         return FALSE;
     }
 
-    HIMEKAO_PICTURE picHimeKaoFileOrigin = { 0 };
-    HIMEKAO_PICTURE picHimeKaoFlipSidePp = { 0 };
+    std::unique_ptr<HIMEKAO_PICTURE> picHimeKaoFileOrigin(new HIMEKAO_PICTURE);
+    std::unique_ptr<HIMEKAO_PICTURE> picHimeKaoFlipSidePp(new HIMEKAO_PICTURE);
 
     char filenameBuf[512] = "";
     std::string jsOverridePath = callJSModRequestHimeKaoID(nTargetHimeKaoID);
@@ -143,14 +143,14 @@ BOOL Hook_ReadFileCustom_HimeKao(
 
     // 元の画像をコピー
     if (nNumberOfBytesToRead == buffer.size()) {
-        memcpy(&picHimeKaoFileOrigin, buffer.data(), buffer.size());
+        memcpy(picHimeKaoFileOrigin.get(), buffer.data(), buffer.size());
 
         // 上下反転したものを picfileOrigin→picflipSidePp にコピー
         for (int i = 0; i < KAO_PIC_HIGHT; i++) {
-            memcpy(&(picHimeKaoFlipSidePp.line[KAO_PIC_HIGHT - 1 - i]), &(picHimeKaoFileOrigin.line[i]), KAO_PIC_WIDTH);
+            memcpy(&(picHimeKaoFlipSidePp->line[KAO_PIC_HIGHT - 1 - i]), &(picHimeKaoFileOrigin->line[i]), KAO_PIC_WIDTH);
         }
 
-        memcpy(lpBuffer, &picHimeKaoFlipSidePp, (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
+        memcpy(lpBuffer, picHimeKaoFlipSidePp.get(), (KAO_PIC_WIDTH * KAO_PIC_HIGHT));
     }
 
 
@@ -171,8 +171,6 @@ struct KAHOU_PICTURE {
     KAHOU_PICLINE line[KAHOU_PIC_HIGHT];
 };
 
-KAHOU_PICTURE picItemFileOrigin = { 0 };
-KAHOU_PICTURE picItemFlipSidePp = { 0 };
 
 extern int nTargetKahouGazouID;
 BOOL Hook_ReadFileCustom_KahouPic(
@@ -182,6 +180,9 @@ BOOL Hook_ReadFileCustom_KahouPic(
     LPDWORD lpNumberOfBytesRead, // 実際に読み込んだバイト数
     LPOVERLAPPED lpOverlapped // オーバーラップ構造体のポインタ
 ) {
+
+    std::unique_ptr<KAHOU_PICTURE> picItemFileOrigin(new KAHOU_PICTURE);
+    std::unique_ptr<KAHOU_PICTURE> picItemFlipSidePp(new KAHOU_PICTURE);
 
     char filenameBuf[512] = "";
     std::string jsOverridePath = callJSModRequestKahouPicID(nTargetKahouGazouID);
@@ -216,14 +217,14 @@ BOOL Hook_ReadFileCustom_KahouPic(
 
     // 元の画像をコピー
     if (nNumberOfBytesToRead == buffer.size()) {
-        memcpy(&picItemFileOrigin, buffer.data(), buffer.size());
+        memcpy(picItemFileOrigin.get(), buffer.data(), buffer.size());
 
         // 上下反転したものを picfileOrigin→picflipSidePp にコピー
         for (int i = 0; i < KAHOU_PIC_HIGHT; i++) {
-            memcpy(&(picItemFlipSidePp.line[KAHOU_PIC_HIGHT -1 - i]), &(picItemFileOrigin.line[i]), KAHOU_PIC_WIDTH);
+            memcpy(&(picItemFlipSidePp->line[KAHOU_PIC_HIGHT -1 - i]), &(picItemFileOrigin->line[i]), KAHOU_PIC_WIDTH);
         }
 
-        memcpy(lpBuffer, &picItemFlipSidePp, (KAHOU_PIC_WIDTH * KAHOU_PIC_HIGHT));
+        memcpy(lpBuffer, picItemFlipSidePp.get(), (KAHOU_PIC_WIDTH * KAHOU_PIC_HIGHT));
     }
 
 
