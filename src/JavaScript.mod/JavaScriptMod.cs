@@ -41,6 +41,12 @@ public class IJavaScriptMod
     {
         return ゲーム.StaticLib.onRequest家宝画像(PicID);
     }
+
+    public static String onRequestKamonPicID(int PicID)
+    {
+        return ゲーム.StaticLib.onRequest家紋画像(PicID);
+    }
+
     public static String onRequestFile(String filepath)
     {
         return ゲーム.StaticLib.onRequestファイル(filepath);
@@ -315,6 +321,32 @@ namespace ゲーム
             }
             return "";
         }
+
+        public static String onRequest家紋画像(int iKamonID)
+        {
+            try
+            {
+                dynamic jsObject = new ExpandoObject();
+                jsObject.画像番号 = iKamonID;
+                dynamic ret = engine.Script.onRequest家紋画像(jsObject);
+                if (ret is Undefined)
+                {
+                    return "";
+                }
+                if (ret.ファイル名 is Undefined)
+                {
+                    return "";
+                }
+                return ret.ファイル名;
+            }
+            catch (Exception e)
+            {
+                OutputDebugStream("onRequest家紋画像Error:" + e.Message);
+            }
+            return "";
+        }
+
+
 
         public static String onRequestファイル(string filename)
         {

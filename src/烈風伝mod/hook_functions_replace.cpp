@@ -308,10 +308,12 @@ PROC pfnOrigCreateFileA = GetProcAddress(GetModuleHandleA("kernel32.dll"), "Crea
 int nTargetKaoID = -1;
 int nTargetHimeKaoID = -1;
 int nTargetKahouGazouID = -1;
+int nTargetKamonCGID = -1;
 // extern HANDLE Hook_CreateFileACustom(LPCSTR lpFileName, DWORD dwDesiredAccess, DWORD dwShareMode, LPSECURITY_ATTRIBUTES lpSecurityAttributes, DWORD dwCreationDisposition, DWORD dwFlagsAndAttributes, HANDLE hTemplateFile);
 HANDLE hFileKAODATA = NULL;
 HANDLE hFileHIMEDATA = NULL;
 HANDLE hFileITEMDATA = NULL;
+HANDLE hFileKAMONCG = NULL;
 HANDLE WINAPI Hook_CreateFileA(
     LPCSTR lpFileName, // ファイル名
     DWORD dwDesiredAccess, // アクセス方法
@@ -325,6 +327,7 @@ HANDLE WINAPI Hook_CreateFileA(
     // Hook_CreateFileACustom(lpFileName, dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwCreationDisposition, dwFlagsAndAttributes, hTemplateFile);
     nTargetKaoID = -1;
     nTargetKahouGazouID = -1;
+    nTargetKamonCGID = -1;
 
     HANDLE nResult;
 
@@ -360,6 +363,10 @@ HANDLE WINAPI Hook_CreateFileA(
         OutputDebugStream("CreateFileA:" + std::string(lpFileName) + "\n");
         hFileITEMDATA = nResult;
     }
+    else if (filename == "KAMONCG.NB8") {
+        OutputDebugStream("CreateFileA:" + std::string(lpFileName) + "\n");
+        hFileKAMONCG = nResult;
+    }
     return nResult;
 }
 
@@ -382,6 +389,7 @@ DWORD WINAPI Hook_SetFilePointer(
     nTargetKaoID = -1;
     nTargetHimeKaoID = -1;
     nTargetKahouGazouID = -1;
+    nTargetKamonCGID = -1;
     // 元のもの
     DWORD nResult = ((PFNSETFILEPOINTER)pfnOrigSetFilePointer)(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod);
     if (hFileKAODATA == hFile) {
@@ -408,6 +416,14 @@ DWORD WINAPI Hook_SetFilePointer(
         OutputDebugStream("家宝SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
         OutputDebugStream("顔ID:%d\n", nTargetKahouGazouID);
     }
+    else if (hFileKAMONCG == hFile) {
+        const int pic_data_size = (KAMON_PIC_WIDTH * KAMON_PIC_HIGHT) * 162; // 162個の家宝画像が入っている
+        const int file_org_size = 95908; // KAMONCG.NB8のファイルサイズ
+        const int header_size = file_org_size - pic_data_size;
+        nTargetKamonCGID = (lDistanceToMove - header_size) / (KAMON_PIC_WIDTH * KAMON_PIC_HIGHT);
+        OutputDebugStream("家紋SetFilePointer:" + std::to_string(lDistanceToMove) + "\n");
+        OutputDebugStream("家紋ID:%d\n", nTargetKamonCGID);
+    }
     return nResult;
 }
 
@@ -421,6 +437,7 @@ PROC pfnOrigReadFile = GetProcAddress(GetModuleHandleA("kernel32.dll"), "ReadFil
 extern BOOL Hook_ReadFileCustom_BushouKao(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 extern BOOL Hook_ReadFileCustom_HimeKao(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 extern BOOL Hook_ReadFileCustom_KahouPic(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
+extern BOOL Hook_ReadFileCustom_KamonPic(HANDLE hFile, LPVOID lpBuffer, DWORD nNumberOfBytesToRead, LPDWORD lpNumberOfBytesRead, LPOVERLAPPED lpOverlapped);
 
 BOOL WINAPI Hook_ReadFile(
     HANDLE hFile, // ファイルのハンドル
@@ -445,10 +462,15 @@ BOOL WINAPI Hook_ReadFile(
         OutputDebugStream("読み込むバイト数%d", nNumberOfBytesToRead);
         Hook_ReadFileCustom_KahouPic(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
     }
+    else if (hFileKAMONCG == hFile) {
+        OutputDebugStream("読み込むバイト数%d", nNumberOfBytesToRead);
+        Hook_ReadFileCustom_KamonPic(hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped);
+    }
 
     nTargetKaoID = -1;
     nTargetHimeKaoID = -1;
     nTargetKahouGazouID = -1;
+    nTargetKamonCGID = -1;
 
     return nResult;
 }
