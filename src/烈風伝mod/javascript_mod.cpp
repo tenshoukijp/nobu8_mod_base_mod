@@ -21,13 +21,13 @@ void callJSModDestroyWindow() {
 void callJSModMmioOpenA(char* pszFileName, char* bufOverrideFileName) {
 	System::String^ filepath = gcnew System::String(pszFileName);
 	if (filepath->ToLower()->StartsWith("bgm\\")) {
-		System::String^ ret = IJavaScriptMod::onRequestBGM(filepath->ToLower());
+		System::String^ ret = IJavaScriptMod::on音楽要求時(filepath->ToLower());
 		if (!System::String::IsNullOrEmpty(ret)) {
 			strcpy_s(bufOverrideFileName, 512, to_native_string(ret).c_str());
 		}
 	}
 	else {
-		System::String^ ret = IJavaScriptMod::onRequestSound(filepath->ToLower());
+		System::String^ ret = IJavaScriptMod::on効果音要求時(filepath->ToLower());
 		if (!System::String::IsNullOrEmpty(ret)) {
 			strcpy_s(bufOverrideFileName, 512, to_native_string(ret).c_str());
 		}
@@ -35,27 +35,27 @@ void callJSModMmioOpenA(char* pszFileName, char* bufOverrideFileName) {
 }
 
 std::string callJSModRequestBushouKaoID(int iKaoID) {
-	System::String^ filepath = IJavaScriptMod::onRequestKaoID(iKaoID);
+	System::String^ filepath = IJavaScriptMod::on顔画像要求時(iKaoID);
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
 	return to_native_string(filepath);
 }
 
 std::string callJSModRequestHimeKaoID(int iKaoID) {
-	//System::String^ filepath = IJavaScriptMod::onRequestKaoID(iKaoID);
-	//if (System::String::IsNullOrEmpty(filepath)) { return ""; }
-	//return to_native_string(filepath);
+	System::String^ filepath = IJavaScriptMod::on姫顔画像要求時(iKaoID);
+	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
+	return to_native_string(filepath);
 	return "";
 }
 
 
 std::string callJSModRequestKahouPicID(int iPicID) {
-	System::String^ filepath = IJavaScriptMod::onRequestKahouPicID(iPicID);
+	System::String^ filepath = IJavaScriptMod::on家宝画像要求時(iPicID);
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
 	return to_native_string(filepath);
 }
 
 std::string callJSModRequestKamonPicID(int iPicID) {
-	System::String^ filepath = IJavaScriptMod::onRequestKamonPicID(iPicID);
+	System::String^ filepath = IJavaScriptMod::on家紋画像要求時(iPicID);
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
 	return to_native_string(filepath);
 }
@@ -63,7 +63,7 @@ std::string callJSModRequestKamonPicID(int iPicID) {
 
 
 std::string callJSModRequestFile(const char* pszFileName) {
-	System::String^ filepath = IJavaScriptMod::onRequestFile(gcnew System::String(pszFileName));
+	System::String^ filepath = IJavaScriptMod::onファイル要求時(gcnew System::String(pszFileName));
 	if (System::String::IsNullOrEmpty(filepath)) { return ""; }
 	return to_native_string(filepath);
 }

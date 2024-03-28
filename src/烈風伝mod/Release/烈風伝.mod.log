@@ -1,27 +1,4 @@
-﻿  data_game_text_resource.cpp
-  export_func.cpp
-  file_attribute.cpp
-  game_font.cpp
-  game_menu.cpp
-  game_process.cpp
-  game_screen.cpp
-  game_test.cpp
-  game_window.cpp
-  hook_defwindowproca_custom.cpp
-  hook_functions_direct.cpp
-  hook_functions_replace.cpp
-  hook_kanni_label_name.cpp
-  hook_movie_ending_filename.cpp
-  hook_movie_opening_filename.cpp
-  hook_readfile_custom.cpp
-C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_opening_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\master\source\repos\烈風伝Mod\烈風伝mod\hook_movie_ending_filename.cpp(1,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  hook_setmenu_custom.cpp
-  javascript_mod.cpp
-  mng_文字列変換.cpp
-  onigwrap.cpp
-  output_debug_stream.cpp
-  .NETFramework,Version=v4.8.AssemblyAttributes.cpp
+﻿  javascript_mod.cpp
      ライブラリ C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.lib とオブジェクト C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.exp を作成中
 LINK : warning LNK4232: 名前 烈風伝.mod に ASCII 文字以外の文字が含まれています。932 以外の ANSI コードページを使用すると、DLL をシステムに読み込めない可能性があります
 烈風伝.mod.exp : warning LNK4070: .EXP 内の /OUT:烈風伝.mod ディレクティブの指定が出力ファイル名 'C:\Users\master\source\repos\烈風伝Mod\Release\烈風伝.mod.dll' と異なっています。ディレクティブは無視されます。
