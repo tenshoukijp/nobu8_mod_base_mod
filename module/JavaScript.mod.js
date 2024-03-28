@@ -1,43 +1,55 @@
-require("abc.js");
 
-function abc() {
-    console.log("これ？");
+
+function onメインウィンドウ生成後(arg, ret) {
+    console.log("onメインウィンドウ生成後");
 }
 
-function onCreateメインウィンドウ(arg) {
-    let a = 1/0;
-    console.log(arg.ウィンドウハンドル);
-    console.log(arg);
-    let rand = new System.Random();
-    console.log([1,2,3]);
-    console.log("%s", 100);
-    console.log([1,2,3]);
-    console.log(require);
+function onフォント要求時(arg, ret) {
+    ret.フォント名 = "天翔 PC98"; // HG明朝E
 }
 
-function onRequestフォント(arg) {
-    ret = {};
-    ret.フォント名 = "烈風 明朝";
-    return ret;
+function onメインウィンドウ破棄前(arg, ret) {
+    console.log("onメインウィンドウ破棄前");
 }
 
-function onDestroyメインウィンドウ() {
-    console.log("破棄来たよ!!");
+function on音楽要求時(arg, ret) {
+    console.log("onRequest音楽\n");
+    console.log("元のBGM:" + arg.ファイル名 + "\n");
 }
 
-function onRequest音楽(arg) {
-    console.log("要求されているBGMファイルは:" + arg.ファイル名);
-
-    ret = {};
-    ret.ファイル名 = "BGM\\07.wav";
-    return ret;
+function on効果音要求時(arg, ret) {
+    console.log("元の効果音:" + arg.ファイル名 + "\n");
+    /*
+    if (arg.ファイル名 == "se\\se999.wav") {
+        ret.ファイル名 = arg.ファイル名;
+    }
+    if (arg.ファイル名 == "se\\se000.wav") {
+        console.log("一致したので変更する。\n");
+        ret.ファイル名 = "se\\se001.wav";
+    }
+    else if (arg.ファイル名 == "se\\se001.wav") {
+        console.log("一致したので変更する。\n");
+        ret.ファイル名 = "se\\se002a.wav";
+    }
+    else {
+        console.log("一致しない。\n");
+    }
+    */
 }
 
-function onRequest効果音(arg) {
-    console.log("要求されている効果音ファイルは:" + arg.ファイル名);
+function on顔画像要求時(arg, ret) {
+    console.log("onRequest顔画像のID:" + arg.画像番号 + "\n");
+    /*
+    // 0000.bmp からではなく、 0001.bmp からにする場合など
+    ret.ファイル名 = System.String.Format("OVERRIDE\\MYKAODATA\\{0:D4}.bmp", arg.画像ID+1);
+    */
+}
 
-    ret = {};
-    ret.ファイル名 = "se041.wav";
-    return ret;
+function on家宝画像要求時(arg, ret) {
+    console.log("onRequest家宝画像のID:" + arg.画像番号 + "\n");
+    /*
+    // 特定のファイルだけ別のフォルダから読み込ませるなども可能
+    ret.ファイル名 = System.String.Format("OVERRIDE_MYITEMCG\\{0:D3}.bmp", arg.画像ID);
+    */
 }
 
