@@ -6,6 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9484C24F-1192-41AD-8076-F418DDCF3540}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <LangVersion>Latest</LangVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JavaScript.mod</RootNamespace>
     <AssemblyName>JavaScript.mod</AssemblyName>
@@ -47,9 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="パブリック\Console.cs" />
-    <Compile Include="パブリック\Interface.cs" />
+    <Compile Include="Export.cs" />
     <Compile Include="JavaScriptMod.cs" />
+    <Compile Include="JavaScriptObject\Console.cs" />
+    <Compile Include="JavaScriptObject\RegistObject.cs" />
+    <Compile Include="JavaScriptEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
